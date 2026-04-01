@@ -483,10 +483,9 @@
   <!-- MONTH SELECTOR -->
   <div class="month-selector-bar fade-up">
     <span class="month-selector-label">📅 Select Month</span>
-    <select class="month-select" id="month-select" onchange="switchMonth()">
-      <option value="0">January 2026</option>
-      <option value="1">February 2026</option>
-    </select>
+ <select class="month-select" id="month-select" onchange="switchMonth()">
+  <option disabled selected>Discovering sheets...</option>
+</select>
   </div>
 
   <!-- STATUS -->
@@ -626,7 +625,7 @@ async function discoverSheets(){
 
 // Fallback: scrape the sheet HTML page for tab names & GIDs
 async function discoverSheetsViaHTML() {
-  const pageUrl = ⁠ https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit ⁠;
+  const pageUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
   try {
     const res = await fetch(pageUrl);
     const html = await res.text();
@@ -844,7 +843,7 @@ function render(rows, monthIdx) {
 // ── FETCH ────────────────────────────────────────────────────────────────────
 async function loadMonth(monthIdx) {
   const gid = MONTHS[monthIdx].gid;
-  const url  = ⁠ https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid} ⁠;
+const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
 
   // Reset loaders
   document.getElementById('kpi-grid').innerHTML    = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching data…</div>';
