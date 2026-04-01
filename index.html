@@ -1,98 +1,79 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Stone Bridge Mirth — Maintenance Dashboard</title>
+<title>Apartment Maintenance Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-:root{
---bg:#0d1117;
---card:#161b22;
---border:#30363d;
---accent:#e8c96b;
---text:#e6edf3;
---muted:#8b949e;
-}
-
-*{box-sizing:border-box}
-
 body{
-margin:0;
+background:#0d1117;
+color:#e6edf3;
 font-family:Outfit;
-background:var(--bg);
-color:var(--text);
+margin:0;
+padding:40px;
 }
 
-.wrap{
+.container{
 max-width:1200px;
 margin:auto;
-padding:30px;
 }
 
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:40px;
-}
-
-h1{
-font-weight:500;
+margin-bottom:30px;
 }
 
 select{
-padding:10px 14px;
-background:var(--card);
-border:1px solid var(--border);
-color:white;
+padding:10px;
 border-radius:8px;
+background:#161b22;
+color:white;
+border:1px solid #30363d;
 }
 
-.kpi-grid{
+.kpis{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 gap:20px;
-margin-bottom:40px;
+margin-bottom:30px;
 }
 
-.kpi{
-background:var(--card);
-padding:24px;
-border-radius:12px;
-border:1px solid var(--border);
+.card{
+background:#161b22;
+padding:20px;
+border-radius:10px;
+border:1px solid #30363d;
 }
 
-.kpi-label{
+.card-title{
 font-size:12px;
-color:var(--muted);
-margin-bottom:10px;
+color:#8b949e;
+margin-bottom:6px;
 }
 
-.kpi-value{
-font-size:28px;
-font-weight:500;
-color:var(--accent);
+.card-value{
+font-size:26px;
+color:#e8c96b;
 }
 
 .section{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:12px;
-margin-bottom:40px;
+background:#161b22;
+border:1px solid #30363d;
+border-radius:10px;
+margin-bottom:30px;
 }
 
 .section h2{
-padding:20px;
+padding:15px;
 margin:0;
-border-bottom:1px solid var(--border);
-font-size:18px;
+border-bottom:1px solid #30363d;
 }
 
 table{
@@ -101,14 +82,14 @@ border-collapse:collapse;
 }
 
 th,td{
-padding:12px 20px;
-border-bottom:1px solid var(--border);
+padding:12px;
+border-bottom:1px solid #30363d;
 text-align:left;
 }
 
 th{
-color:var(--muted);
 font-size:12px;
+color:#8b949e;
 text-transform:uppercase;
 }
 
@@ -123,8 +104,8 @@ font-family:monospace;
 .expense-row{
 display:flex;
 justify-content:space-between;
-padding:12px 20px;
-border-bottom:1px solid var(--border);
+padding:12px 15px;
+border-bottom:1px solid #30363d;
 }
 
 </style>
@@ -133,7 +114,7 @@ border-bottom:1px solid var(--border);
 
 <body>
 
-<div class="wrap">
+<div class="container">
 
 <header>
 
@@ -143,7 +124,7 @@ border-bottom:1px solid var(--border);
 
 </header>
 
-<div class="kpi-grid" id="kpis"></div>
+<div class="kpis" id="kpis"></div>
 
 <div class="section">
 
@@ -157,6 +138,7 @@ border-bottom:1px solid var(--border);
 <th>Deposit</th>
 <th>Electricity</th>
 <th>Total</th>
+<th>Remarks</th>
 </tr>
 </thead>
 
@@ -181,40 +163,60 @@ border-bottom:1px solid var(--border);
 const SHEET_ID="1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs"
 
 const MONTHS=[
-{name:"January",gid:"0"},
-{name:"February",gid:"123456"},
-{name:"March",gid:"234567"}
+"Jan","Feb","Mar","Apr","May","Jun",
+"Jul","Aug","Sep","Oct","Nov","Dec"
 ]
+
+const YEAR=2026
 
 const select=document.getElementById("monthSelect")
 
 MONTHS.forEach(m=>{
-const o=document.createElement("option")
-o.value=m.gid
-o.textContent=m.name
-select.appendChild(o)
+const option=document.createElement("option")
+option.value=m
+option.textContent=m+" "+YEAR
+select.appendChild(option)
 })
-
-function parseCSV(text){
-return text.trim().split("\n").map(r=>r.split(","))
-}
 
 function money(n){
 return "₹"+Number(n).toLocaleString("en-IN")
 }
 
-async function loadMonth(gid){
+function parseCSV(text){
+return text.trim().split("\n").map(r=>r.split(","))
+}
 
-const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
+async function loadMonth(month){
+
+const sheetName=`${month}_${YEAR}`
+
+const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`
 
 const res=await fetch(url)
+
 const text=await res.text()
 
 const rows=parseCSV(text)
 
 const openingBalance=parseFloat(rows[0][1])||0
 
-const paymentRows=rows.slice(3).filter(r=>r[0])
+let i=2
+
+let payments=[]
+
+while(rows[i] && rows[i][0]!="EXPENSES"){
+payments.push(rows[i])
+i++
+}
+
+let expenses=[]
+
+i+=2
+
+while(rows[i] && rows[i][0]){
+expenses.push(rows[i])
+i++
+}
 
 let depositTotal=0
 let electricityTotal=0
@@ -222,12 +224,12 @@ let electricityTotal=0
 const tbody=document.getElementById("paymentTable")
 tbody.innerHTML=""
 
-paymentRows.forEach(r=>{
+payments.forEach(r=>{
 
 const flat=r[0]
-
 const deposit=parseFloat(r[1])||0
 const electricity=parseFloat(r[2])||0
+const remark=r[3]||""
 
 depositTotal+=deposit
 electricityTotal+=electricity
@@ -240,18 +242,18 @@ tbody.innerHTML+=`
 <td class="amount">${money(deposit)}</td>
 <td class="amount">${money(electricity)}</td>
 <td class="amount">${money(total)}</td>
+<td>${remark}</td>
 </tr>
 `
 
 })
 
-const expensesStart=paymentRows.length+4
-
 let expenseTotal=0
+
 const expenseDiv=document.getElementById("expenses")
 expenseDiv.innerHTML=""
 
-rows.slice(expensesStart).forEach(r=>{
+expenses.forEach(r=>{
 
 const name=r[0]
 const amount=parseFloat(r[1])||0
@@ -273,29 +275,29 @@ const closing=openingBalance+collected-expenseTotal
 
 document.getElementById("kpis").innerHTML=`
 
-<div class="kpi">
-<div class="kpi-label">Opening Balance</div>
-<div class="kpi-value">${money(openingBalance)}</div>
+<div class="card">
+<div class="card-title">Opening Balance</div>
+<div class="card-value">${money(openingBalance)}</div>
 </div>
 
-<div class="kpi">
-<div class="kpi-label">Deposit Collected</div>
-<div class="kpi-value">${money(depositTotal)}</div>
+<div class="card">
+<div class="card-title">Deposit Collected</div>
+<div class="card-value">${money(depositTotal)}</div>
 </div>
 
-<div class="kpi">
-<div class="kpi-label">Electricity Collected</div>
-<div class="kpi-value">${money(electricityTotal)}</div>
+<div class="card">
+<div class="card-title">Electricity Collected</div>
+<div class="card-value">${money(electricityTotal)}</div>
 </div>
 
-<div class="kpi">
-<div class="kpi-label">Expenses</div>
-<div class="kpi-value">${money(expenseTotal)}</div>
+<div class="card">
+<div class="card-title">Expenses</div>
+<div class="card-value">${money(expenseTotal)}</div>
 </div>
 
-<div class="kpi">
-<div class="kpi-label">Closing Balance</div>
-<div class="kpi-value">${money(closing)}</div>
+<div class="card">
+<div class="card-title">Closing Balance</div>
+<div class="card-value">${money(closing)}</div>
 </div>
 
 `
@@ -304,10 +306,9 @@ document.getElementById("kpis").innerHTML=`
 
 select.addEventListener("change",e=>loadMonth(e.target.value))
 
-loadMonth(MONTHS[0].gid)
+loadMonth("Jan")
 
 </script>
 
 </body>
-
 </html>
