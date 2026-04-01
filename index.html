@@ -584,23 +584,26 @@ let MONTHS = [];
 // Fetches the sheet's HTML feed which lists all tab names + GIDs
 async function discoverSheets(){
 
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}`;
-
   try{
 
-    const res = await fetch(url);
-    const html = await res.text();
+    const res = await fetch(
+      `https://spreadsheets.google.com/feeds/worksheets/${SHEET_ID}/public/basic?alt=json`
+    );
 
-    const matches = [...html.matchAll(/"sheetId":(\d+),"title":"([^"]+)"/g)];
+    const data = await res.json();
 
-    MONTHS = matches.map(m => {
+    MONTHS = data.feed.entry.map(e => {
 
-      const gid = m[1];
-      const title = m[2];
+      const title = e.title.$t;
+      const link = e.link.find(l => l.rel === "alternate").href;
 
-      const parts = title.split('_');
+      const gid = link.split("gid=").pop();
 
-      const short = parts[0].slice(0,3) + ' ' + parts[1];
+      const parts = title.split("_");
+
+      const short = parts.length > 1
+        ? parts[0].slice(0,3) + " " + parts[1]
+        : title;
 
       return {
         label: title,
@@ -614,7 +617,7 @@ async function discoverSheets(){
 
   }catch(e){
 
-    console.error("Sheet discovery failed",e);
+    console.error("Sheet discovery failed", e);
     return false;
 
   }
