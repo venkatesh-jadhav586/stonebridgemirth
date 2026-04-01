@@ -567,7 +567,6 @@
 
 <script>
 
-// CONFIG
 const SHEET_ID = '1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs';
 
 const COLORS = [
@@ -575,125 +574,103 @@ const COLORS = [
   '#c86be8','#e8976b','#6b8ae8','#e8e86b'
 ];
 
-const EXPENSE_KEYWORDS = ['expense', 'exp'];
-const EXCLUDE_KEYWORDS = ['d.o.p', 'dop'];
+const EXPENSE_KEYWORDS = ['expense','exp'];
+const EXCLUDE_KEYWORDS = ['d.o.p','dop'];
 
-let MONTHS = [];
+let MONTHS=[];
+
 
 // DISCOVER SHEETS
-async function discoverSheets() {
-
-  const feedUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/feeds/worksheets/default/public/full`;
-
-  try {
-
-    const res = await fetch(feedUrl);
-    const xml = await res.text();
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(xml, 'application/xml');
-
-    const entries = Array.from(doc.querySelectorAll('entry'));
-
-    MONTHS = entries.map(entry => {
-
-      const title = entry.querySelector('title').textContent.trim();
-
-      const link = Array.from(entry.querySelectorAll('link'))
-        .find(l => l.getAttribute('rel') === 'self')
-        .getAttribute('href');
-
-      const gid = link.split('/').pop();
-
-      const parts = title.split(' ');
-      const short = parts[0].slice(0,3) + ' ' + parts[parts.length-1];
-
-      return { label: title, short, gid };
-
-    });
-
-    return true;
-
-  } catch(err) {
-
-    console.warn('Feed failed, fallback to HTML scrape');
-
-    return await discoverSheetsViaHTML();
-
-  }
-
-}
-
-// FALLBACK DISCOVERY
-async function discoverSheetsViaHTML(){
-
-  const pageUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
+async function discoverSheets(){
 
   try{
 
-    const res = await fetch(pageUrl);
-    const html = await res.text();
+    const res = await fetch(
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`
+    );
 
-    const matches = [...html.matchAll(/"sheetId":(\d+),"title":"([^"]+)"/g)];
+    const text = await res.text();
 
-    MONTHS = matches.map(m => {
+    const json = JSON.parse(text.substr(47).slice(0,-2));
 
-      const gid = m[1];
-      const title = m[2];
+    const sheets = json.table.cols;
 
-      const parts = title.split(' ');
-      const short = parts[0].slice(0,3) + ' ' + parts[parts.length-1];
+    MONTHS = sheets
+      .filter(c => c.label)
+      .map((c,i)=>{
 
-      return {label:title, short, gid};
+        const title = c.label;
 
-    });
+        const parts = title.split(' ');
+        const short = parts[0].slice(0,3)+' '+parts[parts.length-1];
 
-    return MONTHS.length > 0;
+        return{
+          label:title,
+          short,
+          gid:i
+        };
+
+      });
+
+    return true;
 
   }catch(e){
 
-    console.error(e);
+    console.error("Sheet discovery failed",e);
     return false;
 
   }
 
 }
 
+
 // POPULATE DROPDOWN
 function populateDropdown(){
 
-  const sel = document.getElementById('month-select');
+  const sel=document.getElementById('month-select');
 
-  sel.innerHTML = MONTHS.map((m,i)=>
+  sel.innerHTML=MONTHS.map((m,i)=>
     `<option value="${i}">${m.label}</option>`
   ).join('');
 
 }
 
-// CSV PARSER
+
+// PARSE CSV
 function parseCSV(text){
 
-  return text.trim().split('\n').map(row =>
-    row.split(',').map(c => c.trim().replace(/^"|"$/g,''))
+  return text.trim().split('\n').map(r=>
+    r.split(',').map(c=>c.trim().replace(/^"|"$/g,''))
   );
 
 }
 
+
 function parseNum(v){
-  return parseFloat((v||'0').replace(/[^0-9.-]/g,'')) || 0;
+
+  return parseFloat((v||'0').replace(/[^0-9.-]/g,''))||0;
+
 }
 
 function fmt(n){
-  if(!n) return '—';
-  return '₹' + Number(n).toLocaleString('en-IN');
+
+  if(!n)return '—';
+
+  return '₹'+Number(n).toLocaleString('en-IN');
+
 }
 
+
 function isExpenseCol(h){
-  return EXPENSE_KEYWORDS.some(k => h.toLowerCase().includes(k));
+
+  return EXPENSE_KEYWORDS.some(k=>h.toLowerCase().includes(k));
+
 }
 
 function isExcluded(h){
-  return EXCLUDE_KEYWORDS.some(k => h.toLowerCase().includes(k));
+
+  return EXCLUDE_KEYWORDS.some(k=>h.toLowerCase().includes(k));
+
 }
 
 
@@ -702,15 +679,16 @@ async function loadMonth(monthIdx){
 
   const gid = MONTHS[monthIdx].gid;
 
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+  const url =
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
 
   try{
 
-    const res = await fetch(url);
+    const res=await fetch(url);
 
-    const text = await res.text();
+    const text=await res.text();
 
-    render(parseCSV(text), monthIdx);
+    render(parseCSV(text),monthIdx);
 
   }catch(err){
 
@@ -720,75 +698,92 @@ async function loadMonth(monthIdx){
 
 }
 
+
 // SWITCH MONTH
 function switchMonth(){
 
-  const idx = parseInt(document.getElementById('month-select').value);
+  const idx=parseInt(
+    document.getElementById('month-select').value
+  );
 
   loadMonth(idx);
 
 }
 
 
-// RENDER (your existing render logic stays same)
+// RENDER
 function render(rows,monthIdx){
 
-  const headers = rows[0];
-  const dataRows = rows.slice(1).filter(r=>r.some(c=>c!==''));
+  const headers=rows[0];
+  const dataRows=rows.slice(1).filter(r=>r.some(c=>c!==''));
 
   const mainCols=[];
   const expCols=[];
 
   headers.forEach((h,i)=>{
 
-    if(i===0) return;
-    if(isExcluded(h)) return;
+    if(i===0)return;
 
-    if(isExpenseCol(h)) expCols.push({idx:i,name:h});
-    else mainCols.push({idx:i,name:h});
+    if(isExcluded(h))return;
+
+    if(isExpenseCol(h))
+      expCols.push({idx:i,name:h});
+    else
+      mainCols.push({idx:i,name:h});
 
   });
+
 
   const data=dataRows.map(row=>{
 
     const label=row[0];
 
-    const mainTotal=mainCols.reduce((a,c)=>a+parseNum(row[c.idx]),0);
-    const expTotal=expCols.reduce((a,c)=>a+parseNum(row[c.idx]),0);
+    const mainTotal=mainCols.reduce(
+      (a,c)=>a+parseNum(row[c.idx]),0
+    );
+
+    const expTotal=expCols.reduce(
+      (a,c)=>a+parseNum(row[c.idx]),0
+    );
 
     return{
       label,
       mainTotal,
       expTotal,
       total:mainTotal+expTotal
-    }
+    };
 
   });
 
-  const grandTotal=data.reduce((a,d)=>a+d.total,0);
+
+  const grandTotal=data.reduce(
+    (a,d)=>a+d.total,0
+  );
+
 
   document.getElementById('kpi-grid').innerHTML=
 
-    `<div class="kpi">
-       <div class="kpi-label">Grand Total</div>
-       <div class="kpi-value">${fmt(grandTotal)}</div>
-       <div class="kpi-sub">${MONTHS[monthIdx].short}</div>
-     </div>`;
+  `<div class="kpi">
+      <div class="kpi-label">Grand Total</div>
+      <div class="kpi-value">${fmt(grandTotal)}</div>
+      <div class="kpi-sub">${MONTHS[monthIdx].short}</div>
+  </div>`;
 
 }
 
+
 // BOOT
-(async ()=>{
+(async()=>{
 
   document.getElementById('month-select').innerHTML =
-  '<option disabled selected>Discovering sheets...</option>';
+  '<option disabled selected>Loading sheets...</option>';
 
   const ok = await discoverSheets();
 
   if(!ok){
 
     document.getElementById('month-select').innerHTML =
-    '<option disabled>Could not load sheets</option>';
+    '<option disabled>Sheet detection failed</option>';
 
     return;
 
