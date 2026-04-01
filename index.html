@@ -48,7 +48,6 @@
 
   .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-  /* ── HEADER ── */
   header {
     padding: 48px 0 32px;
     border-bottom: 1px solid var(--border);
@@ -116,7 +115,6 @@
   }
   .btn-ghost:hover { color: var(--text); border-color: var(--text-muted); }
 
-  /* ── MONTH SELECTOR ── */
   .month-selector-bar {
     display: flex;
     align-items: center;
@@ -161,7 +159,6 @@
 
   .month-select:hover { border-color: var(--text-muted); }
 
-  /* ── STATUS BAR ── */
   .status-bar {
     display: flex; gap: 8px; align-items: center;
     font-family: 'DM Mono', monospace;
@@ -177,7 +174,6 @@
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  /* ── KPI CARDS ── */
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -231,7 +227,6 @@
     font-size: 20px; opacity: 0.15;
   }
 
-  /* ── SECTION HEADING ── */
   .section-head {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 20px;
@@ -257,7 +252,6 @@
     vertical-align: middle;
   }
 
-  /* ── BAR CHART ── */
   .chart-section {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -319,7 +313,6 @@
     text-align: center;
   }
 
-  /* ── MAIN TABLE ── */
   .table-section {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -370,7 +363,6 @@
     color: var(--accent);
   }
 
-  /* ── EXPENSE TABLE (separate) ── */
   .expense-section {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -382,7 +374,6 @@
   .expense-section table thead th { background: rgba(107,204,232,0.08); color: var(--accent2); }
   .expense-section tfoot td { color: var(--accent2); }
 
-  /* ── LINK BANNER ── */
   .link-banner {
     background: linear-gradient(135deg, rgba(232,201,107,0.07), rgba(107,204,232,0.07));
     border: 1px solid var(--border);
@@ -401,7 +392,6 @@
   .link-title { font-size: 16px; font-weight: 500; }
   .link-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
 
-  /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
     padding: 32px 0;
@@ -414,7 +404,6 @@
     gap: 12px;
   }
 
-  /* ── LOADER ── */
   .loader {
     text-align: center;
     padding: 60px;
@@ -457,7 +446,6 @@
 
 <div class="wrap">
 
-  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <div class="logo-area">
@@ -480,15 +468,13 @@
     </div>
   </header>
 
-  <!-- MONTH SELECTOR -->
   <div class="month-selector-bar fade-up">
     <span class="month-selector-label">📅 Select Month</span>
- <select class="month-select" id="month-select" onchange="switchMonth()">
-  <option disabled selected>Discovering sheets...</option>
-</select>
+    <select class="month-select" id="month-select" onchange="switchMonth()">
+      <option disabled selected>Discovering sheets…</option>
+    </select>
   </div>
 
-  <!-- STATUS -->
   <div class="status-bar fade-up stagger-1">
     <div class="status-dot"></div>
     <span>Live data from Google Sheets</span>
@@ -496,7 +482,6 @@
     <span id="last-updated">Loading…</span>
   </div>
 
-  <!-- KPI CARDS -->
   <div class="kpi-grid" id="kpi-grid">
     <div class="loader" style="grid-column:1/-1">
       <div class="spinner"></div>
@@ -504,10 +489,9 @@
     </div>
   </div>
 
-  <!-- BAR CHART -->
   <div class="chart-section fade-up stagger-2">
     <div class="section-head">
-      <div class="section-title">Expense Chart <span class="tag" id="chart-month-tag">Jan 2026</span></div>
+      <div class="section-title">Expense Chart <span class="tag" id="chart-month-tag">—</span></div>
     </div>
     <div class="chart-bars" id="chart-bars">
       <div class="loader" style="width:100%;align-items:center;display:flex;justify-content:center;flex-direction:column">
@@ -516,9 +500,8 @@
     </div>
   </div>
 
-  <!-- MAINTENANCE TABLE -->
   <div class="section-head fade-up stagger-3">
-    <div class="section-title">Maintenance Records <span class="tag" id="maint-month-tag">Jan 2026</span></div>
+    <div class="section-title">Maintenance Records <span class="tag" id="maint-month-tag">—</span></div>
   </div>
   <div class="table-section fade-up stagger-3">
     <div class="table-wrap">
@@ -530,9 +513,8 @@
     </div>
   </div>
 
-  <!-- EXPENSE TABLE (separate) -->
   <div class="section-head fade-up stagger-4">
-    <div class="section-title">Expense Breakdown <span class="tag" id="exp-month-tag">Jan 2026</span></div>
+    <div class="section-title">Expense Breakdown <span class="tag" id="exp-month-tag">—</span></div>
   </div>
   <div class="expense-section fade-up stagger-4">
     <div class="table-wrap">
@@ -544,7 +526,6 @@
     </div>
   </div>
 
-  <!-- LINK BANNER -->
   <div class="link-banner fade-up stagger-5">
     <div class="link-banner-left">
       <div class="link-icon">📋</div>
@@ -565,7 +546,6 @@
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
 const SHEET_ID = '1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs';
 
 const COLORS = [
@@ -576,65 +556,45 @@ const COLORS = [
 const EXPENSE_KEYWORDS = ['expense', 'exp'];
 const EXCLUDE_KEYWORDS = ['d.o.p', 'dop'];
 
-// Dynamically discovered sheets: [{ label, short, gid }, ...]
+// Hardcoded fallback — used if discovery fails
 let MONTHS = [
-  { label: "January 2026", short: "Jan 2026", gid: "0" },
+  { label: "January 2026",  short: "Jan 2026", gid: "0" },
   { label: "February 2026", short: "Feb 2026", gid: "1451878896" },
-  { label: "March 2026", short: "Mar 2026", gid: "1873129385" }
+  { label: "March 2026",    short: "Mar 2026", gid: "1873129385" }
 ];
 
-// ── AUTO-DISCOVER SHEETS ─────────────────────────────────────────────────────
-// Fetches the sheet's HTML feed which lists all tab names + GIDs
-async function discoverSheets(){
-
-  try{
-
+// ── AUTO-DISCOVER via JSON feed ───────────────────────────────────────────────
+async function discoverSheets() {
+  try {
     const res = await fetch(
-      `https://spreadsheets.google.com/feeds/worksheets/${SHEET_ID}/public/basic?alt=json`
+      ⁠ https://spreadsheets.google.com/feeds/worksheets/${SHEET_ID}/public/basic?alt=json ⁠
     );
-
+    if (!res.ok) throw new Error('Feed HTTP ' + res.status);
     const data = await res.json();
-
     MONTHS = data.feed.entry.map(e => {
-
       const title = e.title.$t;
-      const link = e.link.find(l => l.rel === "alternate").href;
-
-      const gid = link.split("gid=").pop();
-
-      const parts = title.split("_");
-
+      const link  = e.link.find(l => l.rel === 'alternate').href;
+      const gid   = link.split('gid=').pop();
+      const parts = title.split('_');
       const short = parts.length > 1
-        ? parts[0].slice(0,3) + " " + parts[1]
+        ? parts[0].slice(0,3) + ' ' + parts[1]
         : title;
-
-      return {
-        label: title,
-        short: short,
-        gid: gid
-      };
-
+      return { label: title, short, gid };
     });
-
     return MONTHS.length > 0;
-
-  }catch(e){
-
-    console.error("Sheet discovery failed", e);
+  } catch(e) {
+    console.warn('JSON feed discovery failed:', e);
     return false;
-
   }
-
 }
 
-// Fallback: scrape the sheet HTML page for tab names & GIDs
+// ── FALLBACK: scrape HTML for tab names & GIDs ────────────────────────────────
 async function discoverSheetsViaHTML() {
-  const pageUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
   try {
-    const res = await fetch(pageUrl);
+    const res  = await fetch(⁠ https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit ⁠);
     const html = await res.text();
-    // Tabs appear as: "sheetId":123456,"title":"January 2026"
     const matches = [...html.matchAll(/"sheetId":(\d+),"title":"([^"]+)"/g)];
+    if (!matches.length) return false;
     MONTHS = matches.map(m => {
       const gid   = m[1];
       const title = m[2];
@@ -646,12 +606,12 @@ async function discoverSheetsViaHTML() {
     });
     return MONTHS.length > 0;
   } catch(e) {
-    console.error('HTML scrape also failed:', e);
+    console.warn('HTML scrape also failed:', e);
     return false;
   }
 }
 
-// Populate the <select> dropdown from discovered MONTHS
+// ── POPULATE DROPDOWN ─────────────────────────────────────────────────────────
 function populateDropdown() {
   const sel = document.getElementById('month-select');
   sel.innerHTML = MONTHS.map((m, i) =>
@@ -659,7 +619,7 @@ function populateDropdown() {
   ).join('');
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 function parseCSV(text) {
   return text.trim().split('\n').map(l =>
     l.split(',').map(c => c.trim().replace(/^"|"$/g,''))
@@ -685,7 +645,7 @@ function isExpenseCol(h) {
   return EXPENSE_KEYWORDS.some(k => hl.includes(k));
 }
 
-// ── RENDER ───────────────────────────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function render(rows, monthIdx) {
   const month = MONTHS[monthIdx];
 
@@ -695,30 +655,26 @@ function render(rows, monthIdx) {
     return;
   }
 
-  const headers = rows[0];
+  const headers  = rows[0];
   const dataRows = rows.slice(1).filter(r => r.some(c => c !== ''));
 
-  // Categorise columns
-  let mainCols = [];    // maintenance columns (not expense, not excluded, not total)
-  let expCols  = [];    // expense columns
-  let totalColIdx = -1;
+  let mainCols = [], expCols = [], totalColIdx = -1;
 
   headers.forEach((h, i) => {
-    if (i === 0) return; // first col = row label (flat/unit)
-    if (isExcluded(h)) return; // drop D.O.P
+    if (i === 0) return;
+    if (isExcluded(h)) return;
     const hl = h.toLowerCase();
     if (hl.includes('total') || hl.includes('sum')) { totalColIdx = i; return; }
-    if (isExpenseCol(h)) { expCols.push({ idx: i, name: h }); }
-    else if (h !== '')   { mainCols.push({ idx: i, name: h }); }
+    if (isExpenseCol(h)) expCols.push({ idx: i, name: h });
+    else if (h !== '')   mainCols.push({ idx: i, name: h });
   });
 
-  // Build row data
   const dataItems = dataRows.map(row => {
-    const label = row[0];
-    const mainAmts = mainCols.map(c => ({ name: c.name, amt: parseNum(row[c.idx]) }));
-    const expAmts  = expCols.map(c  => ({ name: c.name, amt: parseNum(row[c.idx])  }));
+    const label     = row[0];
+    const mainAmts  = mainCols.map(c => ({ name: c.name, amt: parseNum(row[c.idx]) }));
+    const expAmts   = expCols.map(c  => ({ name: c.name, amt: parseNum(row[c.idx]) }));
     const mainTotal = mainAmts.reduce((a,e) => a + e.amt, 0);
-    const expTotal  = expAmts.reduce((a,e) => a + e.amt, 0);
+    const expTotal  = expAmts.reduce((a,e)  => a + e.amt, 0);
     const sheetTotal = totalColIdx >= 0 ? parseNum(row[totalColIdx]) : (mainTotal + expTotal);
     return { label, mainAmts, expAmts, mainTotal, expTotal, sheetTotal };
   }).filter(d => d.label);
@@ -736,19 +692,17 @@ function render(rows, monthIdx) {
   const maxItem    = dataItems.reduce((a,d) => d.sheetTotal > a.sheetTotal ? d : a);
   const minItem    = dataItems.reduce((a,d) => d.sheetTotal < a.sheetTotal ? d : a);
 
-  // ── Update month tags ──
   ['chart-month-tag','maint-month-tag','exp-month-tag'].forEach(id => {
     document.getElementById(id).textContent = month.short;
   });
 
-  // ── KPI CARDS ──
   const kpis = [
-    { label: 'Grand Total',        value: fmt(grandTotal),          sub: ⁠ ${month.short} ⁠,            color: '#e8c96b', icon: '💰' },
-    { label: 'Maintenance Total',  value: fmt(grandMain),           sub: 'All maintenance items',     color: '#6bcce8', icon: '🔧' },
-    { label: 'Expense Total',      value: fmt(grandExp),            sub: 'All expense items',         color: '#e86b8a', icon: '🧾' },
-    { label: 'Avg per Entry',      value: fmt(Math.round(avg)),     sub: 'Per row',                   color: '#6be8a7', icon: '📊' },
-    { label: 'Highest Entry',      value: maxItem.label,            sub: fmt(maxItem.sheetTotal),     color: '#c86be8', icon: '📈' },
-    { label: 'Lowest Entry',       value: minItem.label,            sub: fmt(minItem.sheetTotal),     color: '#e8976b', icon: '📉' },
+    { label: 'Grand Total',       value: fmt(grandTotal),      sub: month.short,             color: '#e8c96b', icon: '💰' },
+    { label: 'Maintenance Total', value: fmt(grandMain),       sub: 'All maintenance items', color: '#6bcce8', icon: '🔧' },
+    { label: 'Expense Total',     value: fmt(grandExp),        sub: 'All expense items',     color: '#e86b8a', icon: '🧾' },
+    { label: 'Avg per Entry',     value: fmt(Math.round(avg)), sub: 'Per row',               color: '#6be8a7', icon: '📊' },
+    { label: 'Highest Entry',     value: maxItem.label,        sub: fmt(maxItem.sheetTotal), color: '#c86be8', icon: '📈' },
+    { label: 'Lowest Entry',      value: minItem.label,        sub: fmt(minItem.sheetTotal), color: '#e8976b', icon: '📉' },
   ];
 
   document.getElementById('kpi-grid').innerHTML = kpis.map((k,i) => `
@@ -760,7 +714,6 @@ function render(rows, monthIdx) {
     </div>
   `).join('');
 
-  // ── BAR CHART (by row) ──
   const maxVal = Math.max(...dataItems.map(d => d.sheetTotal));
   document.getElementById('chart-bars').innerHTML = dataItems.map((d,i) => {
     const pct   = maxVal ? (d.sheetTotal / maxVal) * 100 : 0;
@@ -777,9 +730,7 @@ function render(rows, monthIdx) {
     `;
   }).join('');
 
-  // ── MAINTENANCE TABLE ──
-  const mainThead = document.getElementById('main-thead');
-  mainThead.innerHTML = `<tr>
+  document.getElementById('main-thead').innerHTML = `<tr>
     <th>${headers[0] || 'Flat / Unit'}</th>
     ${mainCols.map(c => ⁠ <th>${c.name}</th> ⁠).join('')}
     <th>Sub-Total</th>
@@ -804,7 +755,6 @@ function render(rows, monthIdx) {
     </tr>
   `;
 
-  // ── EXPENSE TABLE (separate) ──
   if (expCols.length > 0) {
     document.getElementById('exp-thead').innerHTML = `<tr>
       <th>${headers[0] || 'Flat / Unit'}</th>
@@ -831,29 +781,26 @@ function render(rows, monthIdx) {
       </tr>
     `;
   } else {
-    // No expense columns detected — show a note
     document.getElementById('exp-thead').innerHTML = ⁠ <tr><th>Note</th></tr> ⁠;
     document.getElementById('exp-tbody').innerHTML = ⁠ <tr><td style="color:var(--text-muted);padding:20px">No expense columns detected. Add columns with "Expense" in the header to see them here.</td></tr> ⁠;
     document.getElementById('exp-tfoot').innerHTML = '';
   }
 
-  // Timestamps
-  const now = new Date();
+  const now     = new Date();
   const dateStr = now.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
   document.getElementById('last-updated').textContent = ⁠ Last loaded ${dateStr} · ${month.label} ⁠;
-  document.getElementById('footer-date').textContent = dateStr;
+  document.getElementById('footer-date').textContent  = dateStr;
 }
 
-// ── FETCH ────────────────────────────────────────────────────────────────────
+// ── FETCH ─────────────────────────────────────────────────────────────────────
 async function loadMonth(monthIdx) {
   const gid = MONTHS[monthIdx].gid;
-const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+  const url = ⁠ https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid} ⁠;
 
-  // Reset loaders
-  document.getElementById('kpi-grid').innerHTML    = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching data…</div>';
-  document.getElementById('chart-bars').innerHTML  = '<div class="loader" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="spinner"></div></div>';
-  document.getElementById('main-tbody').innerHTML  = '<tr><td colspan="20" class="loader"><div class="spinner"></div></td></tr>';
-  document.getElementById('exp-tbody').innerHTML   = '<tr><td colspan="10" class="loader"><div class="spinner"></div></td></tr>';
+  document.getElementById('kpi-grid').innerHTML   = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching data…</div>';
+  document.getElementById('chart-bars').innerHTML = '<div class="loader" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="spinner"></div></div>';
+  document.getElementById('main-tbody').innerHTML = '<tr><td colspan="20" class="loader"><div class="spinner"></div></td></tr>';
+  document.getElementById('exp-tbody').innerHTML  = '<tr><td colspan="10" class="loader"><div class="spinner"></div></td></tr>';
 
   try {
     const res = await fetch(url);
@@ -885,17 +832,13 @@ function switchMonth() {
   loadMonth(idx);
 }
 
-// ── BOOT ─────────────────────────────────────────────────────────────────────
-(async () => {
-  // Show discovering state
- document.addEventListener("DOMContentLoaded", async () => {
-  // Try to auto-discover sheets; fall back to hardcoded MONTHS if it fails
-  const discovered = await discoverSheets();
-  if (!discovered) {
-    console.warn("Auto-discover failed, trying HTML scrape...");
+// ── BOOT — fixed: await discovery before populating dropdown ──────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  const ok = await discoverSheets();
+  if (!ok) {
+    console.warn('Primary discovery failed, trying HTML scrape…');
     await discoverSheetsViaHTML();
   }
-  // Now populate dropdown with whatever MONTHS we have
   populateDropdown();
   loadMonth(0);
 });
