@@ -888,12 +888,17 @@ function switchMonth() {
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 (async () => {
   // Show discovering state
- document.addEventListener("DOMContentLoaded", () => {
+ document.addEventListener("DOMContentLoaded", async () => {
+  // Try to auto-discover sheets; fall back to hardcoded MONTHS if it fails
+  const discovered = await discoverSheets();
+  if (!discovered) {
+    console.warn("Auto-discover failed, trying HTML scrape...");
+    await discoverSheetsViaHTML();
+  }
+  // Now populate dropdown with whatever MONTHS we have
   populateDropdown();
   loadMonth(0);
 });
-
-})();
 </script>
 </body>
 </html>
