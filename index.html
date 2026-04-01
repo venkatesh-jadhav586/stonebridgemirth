@@ -893,26 +893,6 @@ function switchMonth() {
   loadMonth(0);
 });
 
-  const ok = await discoverSheets();
-
-  if (!ok || !MONTHS.length) {
-    document.getElementById('month-select').innerHTML =
-      '<option disabled selected>Could not detect sheets</option>';
-    document.getElementById('kpi-grid').innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">
-        <div style="font-size:36px;margin-bottom:12px">🔒</div>
-        <div style="font-size:16px;margin-bottom:8px;color:var(--text)">Sheet not publicly accessible</div>
-        <div style="font-size:13px;margin-bottom:20px">Share the Google Sheet publicly (Anyone with link → Viewer) so tabs can be auto-detected.</div>
-        <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing"
-           target="_blank" class="btn btn-primary" style="display:inline-flex;margin:0 auto">
-          Open Sheet Manually →
-        </a>
-      </div>`;
-    return;
-  }
-
-  populateDropdown();
-  loadMonth(0); // load first sheet (Jan) by default
 })();
 </script>
 </body>
