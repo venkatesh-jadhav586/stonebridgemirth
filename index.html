@@ -577,7 +577,11 @@ const EXPENSE_KEYWORDS = ['expense', 'exp'];
 const EXCLUDE_KEYWORDS = ['d.o.p', 'dop'];
 
 // Dynamically discovered sheets: [{ label, short, gid }, ...]
-let MONTHS = [];
+let MONTHS = [
+  { label: "January 2026", short: "Jan 2026", gid: "0" },
+  { label: "February 2026", short: "Feb 2026", gid: "1451878896" },
+  { label: "March 2026", short: "Mar 2026", gid: "1873129385" }
+];
 
 // ── AUTO-DISCOVER SHEETS ─────────────────────────────────────────────────────
 // Fetches the sheet's HTML feed which lists all tab names + GIDs
@@ -884,8 +888,10 @@ function switchMonth() {
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 (async () => {
   // Show discovering state
-  document.getElementById('month-select').innerHTML =
-    '<option disabled selected>Discovering sheets…</option>';
+ document.addEventListener("DOMContentLoaded", () => {
+  populateDropdown();
+  loadMonth(0);
+});
 
   const ok = await discoverSheets();
 
