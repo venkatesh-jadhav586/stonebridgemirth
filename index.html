@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@
     --bg: #0d1117; --surface: #161b22; --surface2: #1c2330;
     --border: #30363d; --accent: #e8c96b; --accent2: #6bcce8;
     --text: #e6edf3; --muted: #8b949e; --dim: #3d444d;
-    --green: #3fb950; --red: #f85149; --r: 12px;
+    --green: #3fb950; --red: #f85149; --orange: #e8976b; --r: 12px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:'Outfit',sans-serif; font-weight:300; min-height:100vh; }
@@ -19,145 +20,200 @@
     background-image: linear-gradient(var(--border) 1px,transparent 1px), linear-gradient(90deg,var(--border) 1px,transparent 1px);
     background-size:40px 40px; opacity:0.2; pointer-events:none; z-index:0;
   }
-  .wrap { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:0 24px; }
-  header { padding:40px 0 28px; border-bottom:1px solid var(--border); margin-bottom:32px; }
-  .header-inner { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; }
-  .logo-area { display:flex; align-items:center; gap:14px; }
-  .logo-icon { width:48px; height:48px; background:linear-gradient(135deg,var(--accent),#c8a83b); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 0 28px rgba(232,201,107,0.3); }
-  h1 { font-family:'DM Serif Display',serif; font-size:clamp(20px,4vw,32px); line-height:1.1; }
-  h1 span { display:block; font-family:'Outfit',sans-serif; font-size:12px; font-weight:400; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
-  .header-btns { display:flex; gap:10px; flex-wrap:wrap; }
-  .btn { display:inline-flex; align-items:center; gap:7px; padding:9px 18px; border-radius:8px; font-family:'Outfit',sans-serif; font-size:13px; font-weight:500; text-decoration:none; cursor:pointer; border:none; transition:all 0.2s; }
-  .btn-p { background:var(--accent); color:#0d1117; }
-  .btn-p:hover { background:#f0d47a; box-shadow:0 0 18px rgba(232,201,107,0.4); }
-  .btn-g { background:transparent; color:var(--muted); border:1px solid var(--border); }
-  .btn-g:hover { color:var(--text); border-color:var(--muted); }
-  .month-bar { display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap; }
-  .month-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); font-family:'DM Mono',monospace; }
-  .month-select {
-    background:var(--surface); border:1px solid var(--border); border-radius:8px;
-    color:var(--text); font-family:'Outfit',sans-serif; font-size:14px; font-weight:500;
-    padding:9px 34px 9px 14px; cursor:pointer; appearance:none; -webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:right 11px center; min-width:175px; transition:border-color 0.2s;
-  }
-  .month-select:focus { outline:none; border-color:var(--accent); }
-  .status-bar { display:flex; gap:8px; align-items:center; font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); margin-bottom:28px; }
-  .dot { width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .balance-cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px; }
-  .bal-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:22px 26px; position:relative; overflow:hidden; }
-  .bal-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--card-color, var(--accent)); }
-  .bal-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:10px; }
-  .bal-value { font-family:'DM Serif Display',serif; font-size:34px; line-height:1; }
-  .bal-sub { font-size:12px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:6px; }
-  .sec-head { display:flex; align-items:center; gap:10px; margin-bottom:16px; margin-top:36px; }
-  .sec-title { font-family:'DM Serif Display',serif; font-size:19px; }
-  .tag { font-family:'DM Mono',monospace; font-size:10px; font-weight:500; padding:3px 8px; border-radius:4px; background:var(--surface2); border:1px solid var(--border); color:var(--accent); letter-spacing:1px; text-transform:uppercase; }
-  .tag2 { color:var(--accent2); }
-  .tbl-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; margin-bottom:36px; }
-  .tbl-scroll { overflow-x:auto; }
-  table { width:100%; border-collapse:collapse; }
-  thead th { background:var(--surface2); padding:13px 18px; text-align:left; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); font-family:'DM Mono',monospace; border-bottom:1px solid var(--border); white-space:nowrap; }
-  tbody td { padding:12px 18px; font-size:14px; border-bottom:1px solid var(--dim); white-space:nowrap; }
-  tbody tr:last-child td { border-bottom:none; }
-  tbody tr:hover td { background:var(--surface2); }
-  .td-label { font-family:'Outfit',sans-serif; }
-  .td-num { font-family:'DM Mono',monospace; font-size:13px; }
-  .td-total { font-family:'DM Mono',monospace; font-size:13px; font-weight:600; color:var(--accent); }
-  .td-total2 { font-family:'DM Mono',monospace; font-size:13px; font-weight:600; color:var(--accent2); }
-  .td-remark { font-size:12px; color:var(--muted); font-style:italic; }
-  tfoot td { padding:13px 18px; font-weight:600; font-family:'DM Mono',monospace; font-size:13px; background:var(--surface2); border-top:2px solid var(--border); color:var(--accent); }
-  .exp-head th { background:rgba(107,204,232,0.08) !important; color:var(--accent2) !important; }
-  .exp-foot td { color:var(--accent2) !important; }
-  .chart-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:24px; margin-bottom:36px; }
-  .chart-bars { display:flex; align-items:flex-end; gap:8px; height:150px; margin-top:20px; padding-bottom:8px; border-bottom:1px solid var(--border); }
-  .bar-g { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; height:100%; justify-content:flex-end; }
-  .bar { width:100%; border-radius:4px 4px 0 0; position:relative; min-height:4px; cursor:pointer; transition:opacity 0.2s; }
-  .bar:hover { opacity:0.75; }
-  .bar:hover::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:'DM Mono',monospace; font-size:11px; padding:4px 8px; border-radius:6px; white-space:nowrap; z-index:10; }
-  .bar-lbl { font-size:10px; color:var(--muted); font-family:'DM Mono',monospace; text-align:center; }
-  .loader { text-align:center; padding:50px; color:var(--muted); font-family:'DM Mono',monospace; font-size:13px; }
-  .spinner { width:30px; height:30px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  .link-banner { background:linear-gradient(135deg,rgba(232,201,107,0.06),rgba(107,204,232,0.06)); border:1px solid var(--border); border-radius:var(--r); padding:22px 26px; display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:40px; flex-wrap:wrap; }
-  .link-left { display:flex; align-items:center; gap:12px; }
-  .link-icon { font-size:26px; }
-  .link-title { font-size:15px; font-weight:500; }
-  .link-sub { font-size:12px; color:var(--muted); margin-top:2px; font-family:'DM Mono',monospace; }
-  footer { border-top:1px solid var(--border); padding:28px 0; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
-  @media(max-width:600px) {
-    .balance-cards { grid-template-columns:1fr; }
-    .header-inner { flex-direction:column; align-items:flex-start; }
-  }
+  .wrap { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 24px; }
 
-  /* ── RECEIPT BUTTON ── */
-  .btn-receipt {
-    display:inline-flex; align-items:center; gap:5px;
-    padding:5px 11px; border-radius:6px; font-size:11px; font-weight:500;
-    font-family:'DM Mono',monospace; cursor:pointer; border:none;
-    background:rgba(63,185,80,0.12); color:var(--green);
-    border:1px solid rgba(63,185,80,0.3); transition:all 0.2s; white-space:nowrap;
-  }
-  .btn-receipt:hover { background:rgba(63,185,80,0.22); border-color:var(--green); }
+/* ── HEADER ── */
+header { padding:40px 0 28px; border-bottom:1px solid var(–border); margin-bottom:32px; }
+.header-inner { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; }
+.logo-area { display:flex; align-items:center; gap:14px; }
+.logo-icon { width:48px; height:48px; background:linear-gradient(135deg,var(–accent),#c8a83b); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 0 28px rgba(232,201,107,0.3); }
+h1 { font-family:‘DM Serif Display’,serif; font-size:clamp(20px,4vw,32px); line-height:1.1; }
+h1 span { display:block; font-family:‘Outfit’,sans-serif; font-size:12px; font-weight:400; color:var(–muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+.header-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; gap:7px; padding:9px 18px; border-radius:8px; font-family:‘Outfit’,sans-serif; font-size:13px; font-weight:500; text-decoration:none; cursor:pointer; border:none; transition:all 0.2s; }
+.btn-p { background:var(–accent); color:#0d1117; }
+.btn-p:hover { background:#f0d47a; box-shadow:0 0 18px rgba(232,201,107,0.4); }
+.btn-g { background:transparent; color:var(–muted); border:1px solid var(–border); }
+.btn-g:hover { color:var(–text); border-color:var(–muted); }
+.btn-wa { background:rgba(37,211,102,0.15); color:#25d366; border:1px solid rgba(37,211,102,0.3); }
+.btn-wa:hover { background:rgba(37,211,102,0.28); border-color:#25d366; }
+.btn-danger { background:rgba(248,81,73,0.12); color:var(–red); border:1px solid rgba(248,81,73,0.3); }
+.btn-danger:hover { background:rgba(248,81,73,0.22); }
 
-  /* ── MODAL OVERLAY ── */
-  .modal-overlay {
-    display:none; position:fixed; inset:0; z-index:1000;
-    background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);
-    align-items:center; justify-content:center; padding:20px;
-  }
-  .modal-overlay.open { display:flex; }
-  .modal {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:16px; width:100%; max-width:560px;
-    max-height:90vh; overflow-y:auto;
-    box-shadow:0 24px 80px rgba(0,0,0,0.6);
-    animation:slideUp 0.25s ease;
-  }
-  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
-  .modal-header {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:20px 24px 16px; border-bottom:1px solid var(--border);
-  }
-  .modal-title { font-family:'DM Serif Display',serif; font-size:18px; }
-  .modal-close {
-    width:32px; height:32px; border-radius:8px; border:1px solid var(--border);
-    background:transparent; color:var(--muted); font-size:18px; cursor:pointer;
-    display:flex; align-items:center; justify-content:center; transition:all 0.2s;
-  }
-  .modal-close:hover { color:var(--text); border-color:var(--muted); }
-  .modal-body { padding:24px; }
+/* ── TABS ── */
+.tab-bar { display:flex; gap:4px; margin-bottom:28px; background:var(–surface); border:1px solid var(–border); border-radius:10px; padding:4px; width:fit-content; flex-wrap:wrap; }
+.tab { padding:8px 18px; border-radius:7px; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:var(–muted); transition:all 0.2s; font-family:‘Outfit’,sans-serif; }
+.tab.active { background:var(–accent); color:#0d1117; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
 
-  /* ── RECEIPT PREVIEW ── */
-  .receipt-preview {
-    background:#fff; color:#111; border-radius:10px;
-    padding:28px 28px 20px; font-family:'Outfit',sans-serif;
-    font-size:13px; line-height:1.5; margin-bottom:20px;
-  }
-  .rec-logo { display:flex; align-items:center; gap:10px; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid #e8c96b; }
-  .rec-logo-icon { width:36px; height:36px; background:linear-gradient(135deg,#e8c96b,#c8a83b); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
-  .rec-logo-text { font-size:14px; font-weight:700; color:#111; line-height:1.2; }
-  .rec-logo-sub { font-size:10px; color:#666; letter-spacing:1px; text-transform:uppercase; }
-  .rec-meta { display:flex; justify-content:space-between; margin-bottom:14px; font-size:11px; color:#888; }
-  .rec-meta strong { color:#111; }
-  .rec-section-title { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:#888; margin:14px 0 8px; }
-  .rec-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0; }
-  .rec-row:last-of-type { border-bottom:none; }
-  .rec-key { color:#555; font-size:12px; }
-  .rec-val { font-weight:600; color:#111; font-size:12px; text-align:right; }
-  .rec-total-row { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding:10px 14px; background:#f9f6ee; border-radius:8px; border-left:3px solid #e8c96b; }
-  .rec-total-label { font-weight:700; font-size:13px; color:#111; }
-  .rec-total-val { font-weight:800; font-size:18px; color:#b8960a; }
-  .rec-stamp { margin-top:14px; display:flex; align-items:center; gap:6px; color:#3fb950; font-size:11px; font-weight:600; }
-  .rec-footer { margin-top:14px; padding-top:12px; border-top:1px dashed #ddd; font-size:10px; color:#aaa; text-align:center; }
+/* ── CONTROLS ── */
+.controls-bar { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.month-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(–muted); font-family:‘DM Mono’,monospace; }
+.month-select, .search-input {
+background:var(–surface); border:1px solid var(–border); border-radius:8px;
+color:var(–text); font-family:‘Outfit’,sans-serif; font-size:14px; font-weight:500;
+padding:9px 14px; transition:border-color 0.2s;
+}
+.month-select { padding-right:34px; cursor:pointer; appearance:none; -webkit-appearance:none;
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%238b949e’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”);
+background-repeat:no-repeat; background-position:right 11px center; min-width:175px;
+}
+.month-select:focus, .search-input:focus { outline:none; border-color:var(–accent); }
+.search-input { min-width:220px; }
+.search-input::placeholder { color:var(–muted); }
+.filter-select { background:var(–surface); border:1px solid var(–border); border-radius:8px; color:var(–text); font-family:‘Outfit’,sans-serif; font-size:13px; padding:9px 32px 9px 12px; cursor:pointer; appearance:none; -webkit-appearance:none;
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%238b949e’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”);
+background-repeat:no-repeat; background-position:right 10px center; }
+.filter-select:focus { outline:none; border-color:var(–accent2); }
 
-  .modal-actions { display:flex; gap:10px; }
-  .modal-actions .btn { flex:1; justify-content:center; }
+.status-bar { display:flex; gap:8px; align-items:center; font-family:‘DM Mono’,monospace; font-size:12px; color:var(–muted); margin-bottom:28px; }
+.dot { width:6px; height:6px; border-radius:50%; background:var(–green); box-shadow:0 0 6px var(–green); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  #print-area { display:none; }
+/* ── BALANCE CARDS ── */
+.balance-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:36px; }
+.bal-card { background:var(–surface); border:1px solid var(–border); border-radius:var(–r); padding:20px 22px; position:relative; overflow:hidden; }
+.bal-card::before { content:’’; position:absolute; top:0; left:0; right:0; height:2px; background:var(–card-color, var(–accent)); }
+.bal-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(–muted); margin-bottom:8px; }
+.bal-value { font-family:‘DM Serif Display’,serif; font-size:28px; line-height:1; }
+.bal-sub { font-size:12px; color:var(–muted); font-family:‘DM Mono’,monospace; margin-top:5px; }
 
+/* ── PENDING ALERT ── */
+.pending-alert { background:rgba(232,151,107,0.08); border:1px solid rgba(232,151,107,0.3); border-radius:var(–r); padding:16px 20px; margin-bottom:28px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.pending-alert-icon { font-size:22px; }
+.pending-alert-text { flex:1; }
+.pending-alert-title { font-size:14px; font-weight:600; color:var(–orange); margin-bottom:2px; }
+.pending-alert-sub { font-size:12px; color:var(–muted); font-family:‘DM Mono’,monospace; }
+.pending-chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.pending-chip { background:rgba(232,151,107,0.15); border:1px solid rgba(232,151,107,0.3); color:var(–orange); border-radius:20px; padding:3px 11px; font-size:11px; font-family:‘DM Mono’,monospace; font-weight:500; }
+
+/* ── SECTION HEADERS ── */
+.sec-head { display:flex; align-items:center; gap:10px; margin-bottom:16px; margin-top:36px; }
+.sec-title { font-family:‘DM Serif Display’,serif; font-size:19px; }
+.tag { font-family:‘DM Mono’,monospace; font-size:10px; font-weight:500; padding:3px 8px; border-radius:4px; background:var(–surface2); border:1px solid var(–border); color:var(–accent); letter-spacing:1px; text-transform:uppercase; }
+.tag2 { color:var(–accent2); }
+
+/* ── TABLES ── */
+.tbl-wrap { background:var(–surface); border:1px solid var(–border); border-radius:var(–r); overflow:hidden; margin-bottom:36px; }
+.tbl-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+thead th { background:var(–surface2); padding:13px 18px; text-align:left; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(–muted); font-family:‘DM Mono’,monospace; border-bottom:1px solid var(–border); white-space:nowrap; cursor:pointer; user-select:none; }
+thead th:hover { color:var(–text); }
+thead th .sort-icon { opacity:0.4; margin-left:4px; }
+thead th.sort-asc .sort-icon::after { content:‘↑’; opacity:1; }
+thead th.sort-desc .sort-icon::after { content:‘↓’; opacity:1; }
+thead th .sort-icon::after { content:‘↕’; }
+tbody td { padding:12px 18px; font-size:14px; border-bottom:1px solid var(–dim); white-space:nowrap; }
+tbody tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:var(–surface2); }
+.td-label { font-family:‘Outfit’,sans-serif; }
+.td-num { font-family:‘DM Mono’,monospace; font-size:13px; }
+.td-total { font-family:‘DM Mono’,monospace; font-size:13px; font-weight:600; color:var(–accent); }
+.td-total2 { font-family:‘DM Mono’,monospace; font-size:13px; font-weight:600; color:var(–accent2); }
+.td-remark { font-size:12px; color:var(–muted); font-style:italic; }
+tfoot td { padding:13px 18px; font-weight:600; font-family:‘DM Mono’,monospace; font-size:13px; background:var(–surface2); border-top:2px solid var(–border); color:var(–accent); }
+.exp-head th { background:rgba(107,204,232,0.08) !important; color:var(–accent2) !important; }
+.exp-foot td { color:var(–accent2) !important; }
+.no-results { text-align:center; padding:40px; color:var(–muted); font-family:‘DM Mono’,monospace; font-size:13px; }
+
+/* ── CHART ── */
+.chart-box { background:var(–surface); border:1px solid var(–border); border-radius:var(–r); padding:24px; margin-bottom:36px; }
+.chart-title-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.chart-subtitle { font-size:12px; color:var(–muted); font-family:‘DM Mono’,monospace; }
+.chart-bars { display:flex; align-items:flex-end; gap:8px; height:160px; margin-top:8px; padding-bottom:8px; border-bottom:1px solid var(–border); }
+.bar-g { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; height:100%; justify-content:flex-end; }
+.bar { width:100%; border-radius:4px 4px 0 0; position:relative; min-height:4px; cursor:pointer; transition:opacity 0.2s; }
+.bar:hover { opacity:0.75; }
+.bar:hover::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:var(–surface2); border:1px solid var(–border); color:var(–text); font-family:‘DM Mono’,monospace; font-size:11px; padding:4px 8px; border-radius:6px; white-space:nowrap; z-index:10; }
+.bar-lbl { font-size:10px; color:var(–muted); font-family:‘DM Mono’,monospace; text-align:center; }
+
+/* ── COMPARISON CHART ── */
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px; }
+.compare-card { background:var(–surface); border:1px solid var(–border); border-radius:var(–r); padding:22px; }
+.compare-card-title { font-size:13px; font-weight:600; color:var(–muted); text-transform:uppercase; letter-spacing:1px; font-family:‘DM Mono’,monospace; margin-bottom:16px; }
+.compare-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.compare-bar-label { font-size:12px; color:var(–muted); width:70px; flex-shrink:0; text-overflow:ellipsis; overflow:hidden; }
+.compare-bar-track { flex:1; height:8px; background:var(–surface2); border-radius:4px; overflow:hidden; }
+.compare-bar-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
+.compare-bar-val { font-family:‘DM Mono’,monospace; font-size:11px; color:var(–text); width:70px; text-align:right; flex-shrink:0; }
+.trend-up { color:var(–green); }
+.trend-down { color:var(–red); }
+.trend-same { color:var(–muted); }
+
+/* ── ANNUAL SUMMARY ── */
+.annual-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:32px; }
+.annual-card { background:var(–surface); border:1px solid var(–border); border-radius:var(–r); padding:18px 20px; }
+.annual-card-month { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:1.5px; color:var(–muted); font-family:‘DM Mono’,monospace; margin-bottom:10px; }
+.annual-card-collected { font-family:‘DM Serif Display’,serif; font-size:22px; color:var(–accent); }
+.annual-card-expenses { font-family:‘DM Mono’,monospace; font-size:12px; color:var(–accent2); margin-top:4px; }
+.annual-card-balance { font-family:‘DM Mono’,monospace; font-size:11px; color:var(–muted); margin-top:6px; padding-top:6px; border-top:1px solid var(–dim); }
+.annual-card-status { display:inline-block; font-size:10px; padding:2px 7px; border-radius:3px; margin-top:6px; font-family:‘DM Mono’,monospace; }
+.status-loaded { background:rgba(63,185,80,0.15); color:var(–green); border:1px solid rgba(63,185,80,0.3); }
+.status-loading { background:rgba(139,148,158,0.15); color:var(–muted); border:1px solid var(–border); }
+
+/* ── LOADER ── */
+.loader { text-align:center; padding:50px; color:var(–muted); font-family:‘DM Mono’,monospace; font-size:13px; }
+.spinner { width:30px; height:30px; border:2px solid var(–border); border-top-color:var(–accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── RECEIPT BUTTON ── */
+.btn-receipt { display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:6px; font-size:11px; font-weight:500; font-family:‘DM Mono’,monospace; cursor:pointer; border:none; background:rgba(63,185,80,0.12); color:var(–green); border:1px solid rgba(63,185,80,0.3); transition:all 0.2s; white-space:nowrap; }
+.btn-receipt:hover { background:rgba(63,185,80,0.22); border-color:var(–green); }
+
+/* ── MODAL ── */
+.modal-overlay { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(–surface); border:1px solid var(–border); border-radius:16px; width:100%; max-width:580px; max-height:92vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.6); animation:slideUp 0.25s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+.modal-header { display:flex; justify-content:space-between; align-items:center; padding:20px 24px 16px; border-bottom:1px solid var(–border); }
+.modal-title { font-family:‘DM Serif Display’,serif; font-size:18px; }
+.modal-close { width:32px; height:32px; border-radius:8px; border:1px solid var(–border); background:transparent; color:var(–muted); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.modal-close:hover { color:var(–text); border-color:var(–muted); }
+.modal-body { padding:24px; }
+
+/* ── RECEIPT PREVIEW ── */
+.receipt-preview { background:#fff; color:#111; border-radius:10px; padding:28px 28px 20px; font-family:‘Outfit’,sans-serif; font-size:13px; line-height:1.5; margin-bottom:20px; }
+.rec-logo { display:flex; align-items:center; gap:10px; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid #e8c96b; }
+.rec-logo-icon { width:36px; height:36px; background:linear-gradient(135deg,#e8c96b,#c8a83b); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.rec-logo-text { font-size:14px; font-weight:700; color:#111; line-height:1.2; }
+.rec-logo-sub { font-size:10px; color:#666; letter-spacing:1px; text-transform:uppercase; }
+.rec-meta { display:flex; justify-content:space-between; margin-bottom:14px; font-size:11px; color:#888; }
+.rec-meta strong { color:#111; }
+.rec-section-title { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:#888; margin:14px 0 8px; }
+.rec-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0; }
+.rec-row:last-of-type { border-bottom:none; }
+.rec-key { color:#555; font-size:12px; }
+.rec-val { font-weight:600; color:#111; font-size:12px; text-align:right; }
+.rec-total-row { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding:10px 14px; background:#f9f6ee; border-radius:8px; border-left:3px solid #e8c96b; }
+.rec-total-label { font-weight:700; font-size:13px; color:#111; }
+.rec-total-val { font-weight:800; font-size:18px; color:#b8960a; }
+.rec-stamp { margin-top:14px; display:flex; align-items:center; gap:6px; color:#3fb950; font-size:11px; font-weight:600; }
+.rec-footer { margin-top:14px; padding-top:12px; border-top:1px dashed #ddd; font-size:10px; color:#aaa; text-align:center; }
+.modal-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.modal-actions .btn { flex:1; justify-content:center; min-width:130px; }
+
+/* ── LINK BANNER ── */
+.link-banner { background:linear-gradient(135deg,rgba(232,201,107,0.06),rgba(107,204,232,0.06)); border:1px solid var(–border); border-radius:var(–r); padding:22px 26px; display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:40px; flex-wrap:wrap; }
+.link-left { display:flex; align-items:center; gap:12px; }
+.link-icon { font-size:26px; }
+.link-title { font-size:15px; font-weight:500; }
+.link-sub { font-size:12px; color:var(–muted); margin-top:2px; font-family:‘DM Mono’,monospace; }
+footer { border-top:1px solid var(–border); padding:28px 0; color:var(–muted); font-size:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+
+@media(max-width:700px) {
+.balance-cards { grid-template-columns:1fr 1fr; }
+.compare-grid { grid-template-columns:1fr; }
+.annual-grid { grid-template-columns:1fr 1fr; }
+.header-inner { flex-direction:column; align-items:flex-start; }
+}
+@media(max-width:440px) {
+.balance-cards { grid-template-columns:1fr; }
+.annual-grid { grid-template-columns:1fr; }
+}
+#print-area { display:none; }
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -166,66 +222,173 @@
     <div class="header-inner">
       <div class="logo-area">
         <div class="logo-icon">🏛️</div>
-        <h1><span>Maintenance Ledger</span>Stone Bridge Mirth Apartments</h1>
+        <h1><span>Maintenance Ledger v2</span>Stone Bridge Mirth Apartments</h1>
       </div>
       <div class="header-btns">
-        <a href="https://docs.google.com/spreadsheets/d/1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs/edit?usp=sharing" target="_blank" class="btn btn-p">📊 Open in Google Sheets</a>
-        <a href="https://docs.google.com/spreadsheets/d/1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs/export?format=xlsx" target="_blank" class="btn btn-g">⬇ Download Excel</a>
+        <a href="https://docs.google.com/spreadsheets/d/1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs/edit?usp=sharing" target="_blank" class="btn btn-p">📊 Google Sheets</a>
+        <a href="https://docs.google.com/spreadsheets/d/1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs/export?format=xlsx" target="_blank" class="btn btn-g">⬇ Excel</a>
       </div>
     </div>
   </header>
 
-  <div class="month-bar">
-    <span class="month-label">📅 Select Month</span>
-    <select class="month-select" id="month-select" onchange="switchMonth()"></select>
+  <!-- TABS -->
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('monthly')">📅 Monthly View</button>
+    <button class="tab" onclick="switchTab('compare')">📈 Comparison</button>
+    <button class="tab" onclick="switchTab('pending')">⚠️ Pending Tracker</button>
+    <button class="tab" onclick="switchTab('annual')">📋 Annual Summary</button>
   </div>
 
-  <div class="status-bar">
-    <div class="dot"></div>
-    <span>Live data from Google Sheets</span>
-    <span style="color:var(--dim)">·</span>
-    <span id="last-updated">Loading…</span>
+  <!-- ══════════ TAB: MONTHLY VIEW ══════════ -->
+
+  <div class="tab-panel active" id="tab-monthly">
+    <div class="controls-bar">
+      <span class="month-label">📅 Month</span>
+      <select class="month-select" id="month-select" onchange="switchMonth()"></select>
+      <input class="search-input" id="search-input" type="text" placeholder="🔍 Search flat / unit…" oninput="filterTable()" />
+      <select class="filter-select" id="filter-status" onchange="filterTable()">
+        <option value="all">All Status</option>
+        <option value="paid">Paid Only</option>
+        <option value="pending">Pending Only</option>
+      </select>
+    </div>
+
+```
+<div class="status-bar">
+  <div class="dot"></div>
+  <span>Live data from Google Sheets</span>
+  <span style="color:var(--dim)">·</span>
+  <span id="last-updated">Loading…</span>
+</div>
+
+<div class="balance-cards" id="balance-cards">
+  <div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching…</div>
+</div>
+
+<!-- PENDING ALERT -->
+<div class="pending-alert" id="pending-alert" style="display:none">
+  <div class="pending-alert-icon">⚠️</div>
+  <div class="pending-alert-text">
+    <div class="pending-alert-title" id="pending-alert-title">Pending Payments</div>
+    <div class="pending-alert-sub" id="pending-alert-sub"></div>
+    <div class="pending-chips" id="pending-chips"></div>
+  </div>
+  <button class="btn btn-wa" onclick="shareAllPendingWhatsApp()">📲 Remind All via WhatsApp</button>
+</div>
+
+<div class="sec-head">
+  <div class="sec-title">Maintenance Records</div>
+  <span class="tag" id="maint-tag">—</span>
+  <button class="btn btn-g" style="margin-left:auto;font-size:12px" onclick="bulkDownload()">⬇ Bulk Receipts</button>
+</div>
+<div class="tbl-wrap"><div class="tbl-scroll">
+  <table>
+    <thead id="maint-thead"><tr><th colspan="10"><div class="spinner" style="margin:10px auto"></div></th></tr></thead>
+    <tbody id="maint-tbody"></tbody>
+    <tfoot id="maint-tfoot"></tfoot>
+  </table>
+</div></div>
+
+<div class="sec-head">
+  <div class="sec-title">Expense Breakdown</div>
+  <span class="tag tag2" id="exp-tag">—</span>
+</div>
+<div class="tbl-wrap"><div class="tbl-scroll">
+  <table>
+    <thead id="exp-thead" class="exp-head"><tr><th colspan="4"><div class="spinner" style="margin:10px auto"></div></th></tr></thead>
+    <tbody id="exp-tbody"></tbody>
+    <tfoot id="exp-tfoot" class="exp-foot"></tfoot>
+  </table>
+</div></div>
+
+<div class="sec-head">
+  <div class="sec-title">Monthly Chart</div>
+  <span class="tag" id="chart-tag">—</span>
+</div>
+<div class="chart-box">
+  <div class="chart-bars" id="chart-bars">
+    <div class="loader" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px"><div class="spinner"></div></div>
+  </div>
+</div>
+```
+
   </div>
 
-  <div class="balance-cards" id="balance-cards">
-    <div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching…</div>
-  </div>
+  <!-- ══════════ TAB: COMPARISON ══════════ -->
 
-  <div class="sec-head">
-    <div class="sec-title">Maintenance Records</div>
-    <span class="tag" id="maint-tag">—</span>
-  </div>
-  <div class="tbl-wrap"><div class="tbl-scroll">
-    <table>
-      <thead id="maint-thead"><tr><th colspan="10"><div class="spinner" style="margin:10px auto"></div></th></tr></thead>
-      <tbody id="maint-tbody"></tbody>
-      <tfoot id="maint-tfoot"></tfoot>
-    </table>
-  </div></div>
-
-  <div class="sec-head">
-    <div class="sec-title">Expense Breakdown</div>
-    <span class="tag tag2" id="exp-tag">—</span>
-  </div>
-  <div class="tbl-wrap"><div class="tbl-scroll">
-    <table>
-      <thead id="exp-thead" class="exp-head"><tr><th colspan="4"><div class="spinner" style="margin:10px auto"></div></th></tr></thead>
-      <tbody id="exp-tbody"></tbody>
-      <tfoot id="exp-tfoot" class="exp-foot"></tfoot>
-    </table>
-  </div></div>
-
-  <div class="sec-head">
-    <div class="sec-title">Maintenance Chart</div>
-    <span class="tag" id="chart-tag">—</span>
-  </div>
-  <div class="chart-box">
-    <div class="chart-bars" id="chart-bars">
-      <div class="loader" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px"><div class="spinner"></div></div>
+  <div class="tab-panel" id="tab-compare">
+    <div class="sec-head" style="margin-top:0">
+      <div class="sec-title">Month-over-Month Comparison</div>
+      <span class="tag">Jan – Mar 2026</span>
+    </div>
+    <div id="compare-loading" class="loader"><div class="spinner"></div>Loading all months…</div>
+    <div id="compare-content" style="display:none">
+      <div class="compare-grid" id="compare-grid"></div>
+      <div class="chart-box">
+        <div class="chart-title-row">
+          <div class="sec-title" style="font-size:16px">Collected vs Expenses</div>
+          <div class="chart-subtitle" id="compare-subtitle">All months</div>
+        </div>
+        <div class="chart-bars" id="compare-bars" style="height:200px;gap:20px"></div>
+      </div>
+      <div class="tbl-wrap"><div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Month</th><th>Total Collected</th><th>Total Expenses</th><th>Net Balance</th><th>Units Paid</th><th>Pending Units</th></tr></thead>
+          <tbody id="compare-tbody"></tbody>
+        </table>
+      </div></div>
     </div>
   </div>
 
-  <div class="link-banner">
+  <!-- ══════════ TAB: PENDING TRACKER ══════════ -->
+
+  <div class="tab-panel" id="tab-pending">
+    <div class="sec-head" style="margin-top:0">
+      <div class="sec-title">Pending Payment Tracker</div>
+      <span class="tag" style="color:var(--orange)">All Months</span>
+    </div>
+    <div id="pending-loading" class="loader"><div class="spinner"></div>Scanning all months…</div>
+    <div id="pending-content" style="display:none">
+      <div class="balance-cards" id="pending-summary-cards" style="grid-template-columns:repeat(3,1fr)"></div>
+      <div class="tbl-wrap"><div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>Flat / Unit</th>
+            <th>Jan 2026</th>
+            <th>Feb 2026</th>
+            <th>Mar 2026</th>
+            <th>Months Pending</th>
+            <th>Action</th>
+          </tr></thead>
+          <tbody id="pending-tbody"></tbody>
+        </table>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ TAB: ANNUAL SUMMARY ══════════ -->
+
+  <div class="tab-panel" id="tab-annual">
+    <div class="sec-head" style="margin-top:0">
+      <div class="sec-title">Annual Summary — 2026</div>
+      <span class="tag">Jan – Mar loaded</span>
+    </div>
+    <div id="annual-loading" class="loader"><div class="spinner"></div>Aggregating data…</div>
+    <div id="annual-content" style="display:none">
+      <div class="balance-cards" id="annual-totals" style="grid-template-columns:repeat(3,1fr);margin-bottom:28px"></div>
+      <div class="annual-grid" id="annual-grid"></div>
+      <div class="chart-box">
+        <div class="chart-title-row">
+          <div class="sec-title" style="font-size:16px">Monthly Collection Trend</div>
+          <div class="chart-subtitle">Stacked bar — collected vs expenses</div>
+        </div>
+        <div class="chart-bars" id="annual-bars" style="height:200px;gap:30px;align-items:flex-end"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="link-banner" style="margin-top:16px">
     <div class="link-left">
       <div class="link-icon">📋</div>
       <div>
@@ -237,12 +400,34 @@
   </div>
 
   <footer>
-    <span>Stone Bridge Mirth Apartments · Maintenance Dashboard</span>
+    <span>Stone Bridge Mirth Apartments · Maintenance Dashboard v2</span>
     <span style="font-family:'DM Mono',monospace;">Updated <span id="footer-date"></span></span>
   </footer>
 </div>
 
+<!-- ══════ RECEIPT MODAL ══════ -->
+
+<div class="modal-overlay" id="receipt-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Payment Receipt</div>
+      <button class="modal-close" onclick="document.getElementById('receipt-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="receipt-preview" id="receipt-content"></div>
+      <div class="modal-actions">
+        <button class="btn btn-p" onclick="downloadReceipt()">⬇ Download PDF</button>
+        <button class="btn btn-wa" onclick="shareReceiptWhatsApp()">📲 Share via WhatsApp</button>
+        <button class="btn btn-g" onclick="document.getElementById('receipt-modal').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="print-area"></div>
+
 <script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
 const SHEET_ID = '1xMVeCAiWuDi3SZBxU4xiD-rW68ygJXXqepGbDPp8PXs';
 const COLORS   = ['#e8c96b','#6bcce8','#e86b8a','#6be8a7','#c86be8','#e8976b','#6b8ae8','#e8e86b'];
 
@@ -252,7 +437,18 @@ const MONTHS = [
   { label:"March 2026",    short:"Mar 2026", gid:"1284195684" }
 ];
 
-// Robust CSV parser
+// Global state
+let _allMonthData    = {};   // idx -> { items, expenses, opening, closing }
+let _currentItems    = [];
+let _currentMonthIdx = 0;
+let _currentReceiptHTML = '';
+let _currentReceiptFlat = '';
+let _currentReceiptAmt  = 0;
+let _currentMonthLabel  = '';
+let _sortCol = null, _sortDir = 1;
+let _dataLoadedFlags = {};
+
+// ── UTILITIES ─────────────────────────────────────────────────────────────────
 function parseCSV(text) {
   return text.trim().split('\n').map(line => {
     const cols = []; let cur = '', inQ = false;
@@ -269,44 +465,52 @@ function parseCSV(text) {
 
 function fmt(n) {
   if (n === null || n === undefined || isNaN(n)) return '—';
-  if (n === 0) return 'Zero';
+  if (n === 0) return '₹0';
   return '₹' + Number(n).toLocaleString('en-IN');
 }
 
-// KEY FIX: handles "3620+3120+2986" AND "529+223=952" AND plain "10000"
 function parseAmt(v) {
   if (!v || v.trim() === '') return 0;
   v = v.trim().replace(/[₹\s]/g, '');
-
-  // If has "=", take the value after last "=" (the written result)
   if (v.includes('=')) {
     const afterEq = v.split('=').pop().replace(/,/g, '');
     const n = parseFloat(afterEq);
     if (!isNaN(n)) return n;
   }
-
   v = v.replace(/,/g, '');
-
-  // Evaluate bare arithmetic expressions like 3620+3120+2986
   if (/^[\d+\-*/().]+$/.test(v) && /[+\-*/]/.test(v)) {
     try {
       const result = Function('"use strict"; return (' + v + ')')();
       if (typeof result === 'number' && isFinite(result)) return Math.round(result * 100) / 100;
-    } catch(e) { /* fall through */ }
+    } catch(e) {}
   }
-
   const n = parseFloat(v);
   return isNaN(n) ? 0 : n;
 }
 
 function norm(s) { return (s || '').toLowerCase().trim(); }
+const DOP_PATTERNS = ['d.o.p','dop','date of pay','date pay'];
 
-const DOP_PATTERNS = ['d.o.p','dop','date of pay','date pay']; // kept to skip these cols
+async function fetchCSV(url) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (res.ok) return await res.text();
+  } catch(e) {}
+  try {
+    const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+    const res = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) { const json = await res.json(); if (json && json.contents) return json.contents; }
+  } catch(e) {}
+  try {
+    const proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(url);
+    const res = await fetch(proxy2, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) return await res.text();
+  } catch(e) {}
+  throw new Error('All fetch strategies failed');
+}
 
-function render(allRows, monthIdx) {
-  const month = MONTHS[monthIdx];
-  ['maint-tag','exp-tag','chart-tag'].forEach(id => document.getElementById(id).textContent = month.short);
-
+// ── PARSE SHEET DATA ──────────────────────────────────────────────────────────
+function parseSheetData(allRows) {
   let maintHeaderRow = -1, expHeaderRow = -1, balHeaderRow = -1;
   allRows.forEach((row, i) => {
     const j = row.map(norm).join('|');
@@ -316,320 +520,600 @@ function render(allRows, monthIdx) {
   });
   if (maintHeaderRow < 0) maintHeaderRow = 0;
 
-  // ── MAINTENANCE TABLE ─────────────────────────────────────────────────────
   const maintEnd     = expHeaderRow > 0 ? expHeaderRow : (balHeaderRow > 0 ? balHeaderRow : allRows.length);
   const maintHeaders = allRows[maintHeaderRow];
   const maintRows    = allRows.slice(maintHeaderRow + 1, maintEnd).filter(r => r.some(c => c.trim() !== ''));
 
-  const SKIP    = ['opening balance','closing balance','expense ','column 8','column8'];
+  const SKIP = ['opening balance','closing balance','expense ','column 8','column8'];
   const REM_PAT = ['remark','status'];
-
   const maintCols = [], remarkCols = [];
   let maintTotalIdx = -1, remarksColIdx = -1;
 
   maintHeaders.forEach((h, i) => {
     const hn = norm(h);
     if (i === 0 || hn === '') return;
-    if (DOP_PATTERNS.some(p => hn.includes(p)))  return; // skip D.O.P columns
-    if (SKIP.some(p => hn.includes(p)))           return;
-    if (hn.startsWith('total'))                   { maintTotalIdx = i; return; }
-    if (REM_PAT.some(p => hn.includes(p)))        { remarkCols.push({ idx:i, name:h }); if(remarksColIdx<0) remarksColIdx=i; return; }
+    if (DOP_PATTERNS.some(p => hn.includes(p))) return;
+    if (SKIP.some(p => hn.includes(p)))          return;
+    if (hn.startsWith('total'))                  { maintTotalIdx = i; return; }
+    if (REM_PAT.some(p => hn.includes(p)))       { remarkCols.push({ idx:i, name:h }); if(remarksColIdx<0) remarksColIdx=i; return; }
     maintCols.push({ idx:i, name:h });
   });
 
-  const maintItems = maintRows.map(row => {
+  const items = maintRows.map(row => {
     const label = (row[0] || '').trim();
     if (!label) return null;
     const amts    = maintCols.map(c => ({ name:c.name, amt:parseAmt(row[c.idx]||'') }));
     const remarks = remarkCols.map(c => ({ name:c.name, val:(row[c.idx]||'').trim() }));
     const remarkVal = remarksColIdx >= 0 ? norm(row[remarksColIdx]||'') : '';
     const isPending = remarkVal.includes('pend');
-    const rawSub  = maintTotalIdx >= 0 ? parseAmt(row[maintTotalIdx]||'') : amts.reduce((a,e)=>a+e.amt,0);
-    return { label, amts, remarks, sub: isPending ? 0 : rawSub, isPending, rawSub };
+    const rawSub    = maintTotalIdx >= 0 ? parseAmt(row[maintTotalIdx]||'') : amts.reduce((a,e)=>a+e.amt,0);
+    return { label, amts, remarks, sub: isPending ? 0 : rawSub, isPending, rawSub, maintCols, remarkCols };
   }).filter(Boolean);
 
-  if (maintItems.length) {
-    document.getElementById('maint-thead').innerHTML = `<tr>
-      <th>${maintHeaders[0]||'Flat / Unit'}</th>
-      ${maintCols.map(c=>`<th>${c.name}</th>`).join('')}
-      ${remarkCols.map(c=>`<th>${c.name}</th>`).join('')}
-      <th>Total</th></tr>`;
-
-    document.getElementById('maint-tbody').innerHTML = maintItems.map(d => `
-      <tr style="${d.isPending?'opacity:0.55':''}">
-        <td class="td-label">${d.label}</td>
-        ${d.amts.map(e=>`<td class="td-num">${fmt(e.amt)}</td>`).join('')}
-        ${d.remarks.map(r=>`<td class="td-remark" style="color:${norm(r.val).includes('paid')?'var(--green)':norm(r.val).includes('pend')?'#e8976b':'var(--muted)'}">${r.val||'—'}</td>`).join('')}
-        <td class="td-total" style="${d.isPending?'color:#e8976b':''}">
-          ${d.isPending
-            ? `<span style="color:#e8976b;font-size:11px">PENDING (${fmt(d.rawSub)})</span>`
-            : `<span style="display:inline-flex;align-items:center;gap:8px">${fmt(d.sub)}<button class="btn-receipt" onclick='showReceipt(${JSON.stringify(d)}, "${month.short}")'>🧾 Receipt</button></span>`
-          }
-        </td>
-      </tr>`).join('');
-
-    const colTots   = maintCols.map(c => maintItems.filter(d=>!d.isPending).reduce((a,d)=>a+(d.amts.find(e=>e.name===c.name)?.amt||0),0));
-    const grandM    = maintItems.filter(d=>!d.isPending).reduce((a,d)=>a+d.sub,0);
-    const pendCount = maintItems.filter(d=>d.isPending).length;
-    document.getElementById('maint-tfoot').innerHTML = `<tr>
-      <td>Total Collected${pendCount>0?` <span style="color:#e8976b;font-weight:400;font-size:11px">(${pendCount} pending excluded)</span>`:''}</td>
-      ${colTots.map(t=>`<td>${fmt(t)}</td>`).join('')}
-      ${remarkCols.map(()=>'<td></td>').join('')}
-      <td>${fmt(grandM)}</td></tr>`;
-
-    const maxV = Math.max(...maintItems.map(d=>d.sub),1);
-    document.getElementById('chart-bars').innerHTML = maintItems.map((d,i)=>{
-      const pct=d.sub/maxV*100, color=COLORS[i%COLORS.length], lbl=d.label.length>8?d.label.slice(0,7)+'…':d.label;
-      return `<div class="bar-g"><div class="bar" style="height:${Math.max(pct,3)}%;background:${color};opacity:0.8;border-radius:4px 4px 0 0;" data-tip="${d.label}: ${fmt(d.sub)}"></div><div class="bar-lbl">${lbl}</div></div>`;
-    }).join('');
-  } else {
-    document.getElementById('maint-thead').innerHTML='<tr><th>No maintenance data found</th></tr>';
-    document.getElementById('maint-tbody').innerHTML='';
-    document.getElementById('maint-tfoot').innerHTML='';
-    document.getElementById('chart-bars').innerHTML='<div style="color:var(--muted);padding:20px">No data</div>';
-  }
-
-  // ── EXPENSE TABLE ─────────────────────────────────────────────────────────
+  // Expenses
+  let expenses = [], totalExp = 0;
   if (expHeaderRow >= 0) {
-    const expEnd     = balHeaderRow > expHeaderRow ? balHeaderRow : allRows.length;
+    const expEnd = balHeaderRow > expHeaderRow ? balHeaderRow : allRows.length;
     const expHeaders = allRows[expHeaderRow];
     const expRows    = allRows.slice(expHeaderRow+1, expEnd).filter(r=>r.some(c=>c.trim()!==''));
     let expAmtIdx=-1, expRemIdx=-1;
     expHeaders.forEach((h,i)=>{
       const hn=norm(h);
       if (hn.includes('expense amount')||hn.includes('amount')) expAmtIdx=i;
-      else if (DOP_PATTERNS.some(p=>hn.includes(p))) return; // skip DOP
+      else if (DOP_PATTERNS.some(p=>hn.includes(p))) return;
       else if (hn.includes('remark')) expRemIdx=i;
     });
-    const expItems = expRows.map(row=>{
+    expenses = expRows.map(row=>{
       const name=(row[0]||'').trim();
-      if (!name||norm(name)==='expense') return null;
+      if(!name||norm(name)==='expense') return null;
       return { name, amt:expAmtIdx>=0?parseAmt(row[expAmtIdx]||''):0, remark:expRemIdx>=0?(row[expRemIdx]||'').trim():'' };
     }).filter(Boolean);
-    const totalExp=expItems.reduce((a,e)=>a+e.amt,0);
-
-    document.getElementById('exp-thead').innerHTML=`<tr><th>Expense</th><th>Amount</th>${expRemIdx>=0?'<th>Remarks</th>':''}</tr>`;
-    document.getElementById('exp-tbody').innerHTML=expItems.map(e=>`<tr><td class="td-label">${e.name}</td><td class="td-total2">${fmt(e.amt)}</td>${expRemIdx>=0?`<td class="td-remark">${e.remark}</td>`:''}</tr>`).join('');
-    document.getElementById('exp-tfoot').innerHTML=`<tr><td>Total Expenses</td><td>${fmt(totalExp)}</td>${expRemIdx>=0?'<td></td>':''}</tr>`;
-  } else {
-    document.getElementById('exp-thead').innerHTML='<tr><th>No expense data</th></tr>';
-    document.getElementById('exp-tbody').innerHTML='<tr><td style="color:var(--muted);padding:20px">Add "Expense Amount" column header in sheet</td></tr>';
-    document.getElementById('exp-tfoot').innerHTML='';
+    totalExp = expenses.reduce((a,e)=>a+e.amt,0);
   }
 
-  // ── BALANCES ──────────────────────────────────────────────────────────────
-  let openingBal=null, closingBal=null;
-  if (balHeaderRow>=0) {
-    const bh=allRows[balHeaderRow]; let oi=-1,ci=-1;
+  // Balances
+  let openingBal = null, closingBal = null;
+  if (balHeaderRow >= 0) {
+    const bh = allRows[balHeaderRow]; let oi=-1, ci=-1;
     bh.forEach((h,i)=>{ const n=norm(h); if(n.includes('opening balance'))oi=i; if(n.includes('closing balance'))ci=i; });
-    for(let i=balHeaderRow+1;i<allRows.length;i++){
-      const row=allRows[i];
+    for (let i=balHeaderRow+1; i<allRows.length; i++) {
+      const row = allRows[i];
       if(oi>=0&&openingBal===null){const v=parseAmt(row[oi]||'');if(v)openingBal=v;}
       if(ci>=0&&closingBal===null){const v=parseAmt(row[ci]||'');if(v)closingBal=v;}
-      if(openingBal!==null&&closingBal!==null)break;
+      if(openingBal!==null&&closingBal!==null) break;
     }
   }
-  if(openingBal===null||closingBal===null){
+  if (openingBal===null||closingBal===null) {
     allRows.forEach(row=>row.forEach((cell,i)=>{
       if(norm(cell).includes('opening balance')&&i+1<row.length){const v=parseAmt(row[i+1]||'');if(v&&openingBal===null)openingBal=v;}
-      if(norm(cell).includes('closing balance')&&i+1<row.length){const v=parseAmt(row[i+1]||'');if(v&&closingBal===null)closingBal=v;}
+      if(norm(cell).includes('closing balance')&&i+1<row.length){const v=parseAmt(row[ci+1]||'');if(v&&closingBal===null)closingBal=v;}
     }));
   }
 
-  document.getElementById('balance-cards').innerHTML=`
+  const totalCollected = items.filter(d=>!d.isPending).reduce((a,d)=>a+d.sub,0);
+
+  return { items, expenses, totalExp, openingBal, closingBal, totalCollected,
+           maintCols: maintCols, remarkCols: remarkCols };
+}
+
+// ── RENDER MONTHLY TAB ────────────────────────────────────────────────────────
+function renderMonthly(data, monthIdx) {
+  const month = MONTHS[monthIdx];
+  _currentItems     = data.items;
+  _currentMonthIdx  = monthIdx;
+  _currentMonthLabel = month.short;
+
+  ['maint-tag','exp-tag','chart-tag'].forEach(id => document.getElementById(id).textContent = month.short);
+
+  // Balance cards
+  const pendItems   = data.items.filter(d => d.isPending);
+  const pendAmt     = pendItems.reduce((a,d) => a + d.rawSub, 0);
+  document.getElementById('balance-cards').innerHTML = `
     <div class="bal-card" style="--card-color:#6be8a7">
       <div class="bal-label">Opening Balance</div>
-      <div class="bal-value" style="color:#6be8a7">${openingBal!==null?fmt(openingBal):'—'}</div>
+      <div class="bal-value" style="color:#6be8a7">${data.openingBal !== null ? fmt(data.openingBal) : '—'}</div>
       <div class="bal-sub">${month.short}</div>
     </div>
     <div class="bal-card" style="--card-color:#e8c96b">
       <div class="bal-label">Closing Balance</div>
-      <div class="bal-value" style="color:#e8c96b">${closingBal!==null?fmt(closingBal):'—'}</div>
+      <div class="bal-value" style="color:#e8c96b">${data.closingBal !== null ? fmt(data.closingBal) : '—'}</div>
       <div class="bal-sub">${month.short}</div>
+    </div>
+    <div class="bal-card" style="--card-color:#3fb950">
+      <div class="bal-label">Total Collected</div>
+      <div class="bal-value" style="color:#3fb950">${fmt(data.totalCollected)}</div>
+      <div class="bal-sub">${data.items.filter(d=>!d.isPending).length} units paid</div>
+    </div>
+    <div class="bal-card" style="--card-color:#e8976b">
+      <div class="bal-label">Pending Amount</div>
+      <div class="bal-value" style="color:#e8976b">${fmt(pendAmt)}</div>
+      <div class="bal-sub">${pendItems.length} unit${pendItems.length!==1?'s':''} pending</div>
     </div>`;
 
-  const ds=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-  document.getElementById('last-updated').textContent=`Last loaded ${ds} · ${month.label}`;
-  document.getElementById('footer-date').textContent=ds;
+  // Pending alert
+  if (pendItems.length > 0) {
+    document.getElementById('pending-alert').style.display = 'flex';
+    document.getElementById('pending-alert-title').textContent = `⚠️ ${pendItems.length} Pending Payment${pendItems.length>1?'s':''} — ${fmt(pendAmt)} Outstanding`;
+    document.getElementById('pending-alert-sub').textContent = `${month.short} · Click "Remind All" to send WhatsApp messages`;
+    document.getElementById('pending-chips').innerHTML = pendItems.map(d => `<span class="pending-chip">${d.label}</span>`).join('');
+  } else {
+    document.getElementById('pending-alert').style.display = 'none';
+  }
+
+  renderMaintTable(data.items, data.maintCols || [], data.remarkCols || []);
+  renderExpTable(data.expenses, data.totalExp);
+  renderChart(data.items);
+
+  const ds = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('last-updated').textContent = `Last loaded ${ds} · ${month.label}`;
+  document.getElementById('footer-date').textContent  = ds;
 }
 
-async function fetchCSV(url) {
-  // Strategy 1: Direct fetch (works locally and on most hosts)
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-    if (res.ok) return await res.text();
-  } catch(e) { console.warn('Direct fetch failed:', e.message); }
+function renderMaintTable(items, maintCols, remarkCols) {
+  const search = (document.getElementById('search-input').value || '').toLowerCase();
+  const filter = document.getElementById('filter-status').value;
 
-  // Strategy 2: AllOrigins CORS proxy
-  try {
-    const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-    const res = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) {
-      const json = await res.json();
-      if (json && json.contents) return json.contents;
-    }
-  } catch(e) { console.warn('AllOrigins proxy failed:', e.message); }
+  let filtered = items.filter(d => {
+    if (search && !d.label.toLowerCase().includes(search)) return false;
+    if (filter === 'paid'    && d.isPending) return false;
+    if (filter === 'pending' && !d.isPending) return false;
+    return true;
+  });
 
-  // Strategy 3: corsproxy.io
-  try {
-    const proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(url);
-    const res = await fetch(proxy2, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) return await res.text();
-  } catch(e) { console.warn('corsproxy.io failed:', e.message); }
+  // derive cols from first item if not passed
+  const mCols = maintCols.length ? maintCols : (items[0]?.maintCols || []);
+  const rCols = remarkCols.length ? remarkCols : (items[0]?.remarkCols || []);
 
-  throw new Error('All fetch strategies failed');
+  if (!filtered.length) {
+    document.getElementById('maint-thead').innerHTML = '<tr><th>Flat / Unit</th><th>Amount</th></tr>';
+    document.getElementById('maint-tbody').innerHTML = `<tr><td colspan="10" class="no-results">No results found</td></tr>`;
+    document.getElementById('maint-tfoot').innerHTML = '';
+    return;
+  }
+
+  document.getElementById('maint-thead').innerHTML = `<tr>
+    <th onclick="sortBy('label')" >Flat / Unit<span class="sort-icon"></span></th>
+    ${mCols.map((c,i) => `<th onclick="sortBy('amt${i}')">${c.name}<span class="sort-icon"></span></th>`).join('')}
+    ${rCols.map(c => `<th>${c.name}</th>`).join('')}
+    <th onclick="sortBy('sub')">Total<span class="sort-icon"></span></th>
+  </tr>`;
+
+  document.getElementById('maint-tbody').innerHTML = filtered.map(d => `
+    <tr style="${d.isPending?'opacity:0.6':''}">
+      <td class="td-label">${d.label}</td>
+      ${d.amts.map(e=>`<td class="td-num">${fmt(e.amt)}</td>`).join('')}
+      ${d.remarks.map(r=>`<td class="td-remark" style="color:${norm(r.val).includes('paid')?'var(--green)':norm(r.val).includes('pend')?'var(--orange)':'var(--muted)'}">${r.val||'—'}</td>`).join('')}
+      <td class="td-total" style="${d.isPending?'color:var(--orange)':''}">
+        ${d.isPending
+          ? `<span style="color:var(--orange);font-size:11px">PENDING (${fmt(d.rawSub)})</span>`
+          : `<span style="display:inline-flex;align-items:center;gap:8px">${fmt(d.sub)}<button class="btn-receipt" onclick='showReceipt(${JSON.stringify(d)}, "${_currentMonthLabel}")'>🧾 Receipt</button></span>`
+        }
+      </td>
+    </tr>`).join('');
+
+  const colTots = mCols.map((_,ci) => filtered.filter(d=>!d.isPending).reduce((a,d)=>a+(d.amts[ci]?.amt||0),0));
+  const grandM  = filtered.filter(d=>!d.isPending).reduce((a,d)=>a+d.sub,0);
+  const pendCnt = filtered.filter(d=>d.isPending).length;
+
+  document.getElementById('maint-tfoot').innerHTML = `<tr>
+    <td>Total${pendCnt>0?` <span style="color:var(--orange);font-weight:400;font-size:11px">(${pendCnt} pending excluded)</span>`:''}</td>
+    ${colTots.map(t=>`<td>${fmt(t)}</td>`).join('')}
+    ${rCols.map(()=>'<td></td>').join('')}
+    <td>${fmt(grandM)}</td>
+  </tr>`;
 }
 
+function renderExpTable(expenses, totalExp) {
+  if (!expenses.length) {
+    document.getElementById('exp-thead').innerHTML = '<tr><th>No expense data</th></tr>';
+    document.getElementById('exp-tbody').innerHTML = '<tr><td style="color:var(--muted);padding:20px">Add "Expense Amount" column header</td></tr>';
+    document.getElementById('exp-tfoot').innerHTML = '';
+    return;
+  }
+  document.getElementById('exp-thead').innerHTML = `<tr><th>Expense</th><th>Amount</th><th>Remarks</th></tr>`;
+  document.getElementById('exp-tbody').innerHTML  = expenses.map(e => `<tr><td class="td-label">${e.name}</td><td class="td-total2">${fmt(e.amt)}</td><td class="td-remark">${e.remark||'—'}</td></tr>`).join('');
+  document.getElementById('exp-tfoot').innerHTML  = `<tr><td>Total Expenses</td><td>${fmt(totalExp)}</td><td></td></tr>`;
+}
+
+function renderChart(items) {
+  if (!items.length) { document.getElementById('chart-bars').innerHTML='<div style="color:var(--muted);padding:20px">No data</div>'; return; }
+  const maxV = Math.max(...items.map(d=>d.sub),1);
+  document.getElementById('chart-bars').innerHTML = items.map((d,i)=>{
+    const pct=d.sub/maxV*100, color=COLORS[i%COLORS.length], lbl=d.label.length>8?d.label.slice(0,7)+'…':d.label;
+    return `<div class="bar-g"><div class="bar" style="height:${Math.max(pct,3)}%;background:${color};opacity:${d.isPending?0.3:0.85};border-radius:4px 4px 0 0;" data-tip="${d.label}: ${d.isPending?'PENDING':fmt(d.sub)}"></div><div class="bar-lbl">${lbl}</div></div>`;
+  }).join('');
+}
+
+// ── SORT ──────────────────────────────────────────────────────────────────────
+function sortBy(col) {
+  if (_sortCol === col) _sortDir *= -1;
+  else { _sortCol = col; _sortDir = 1; }
+  const sorted = [..._currentItems].sort((a,b)=>{
+    let va, vb;
+    if (col === 'label') { va=a.label; vb=b.label; return va.localeCompare(vb)*_sortDir; }
+    if (col === 'sub')   { va=a.sub;   vb=b.sub;   return (va-vb)*_sortDir; }
+    const ci = parseInt(col.replace('amt',''));
+    va=a.amts[ci]?.amt||0; vb=b.amts[ci]?.amt||0; return (va-vb)*_sortDir;
+  });
+  _currentItems = sorted;
+  const data = _allMonthData[_currentMonthIdx];
+  renderMaintTable(sorted, data?.maintCols||[], data?.remarkCols||[]);
+}
+
+function filterTable() {
+  const data = _allMonthData[_currentMonthIdx];
+  if (data) renderMaintTable(data.items, data.maintCols||[], data.remarkCols||[]);
+}
+
+// ── LOAD MONTH ────────────────────────────────────────────────────────────────
 async function loadMonth(idx) {
-  const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${MONTHS[idx].gid}`;
-  document.getElementById('balance-cards').innerHTML='<div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching data…</div>';
-  ['maint-tbody','exp-tbody'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=`<tr><td colspan="10" class="loader"><div class="spinner"></div></td></tr>`;});
+  _currentMonthIdx = idx;
+  if (_allMonthData[idx]) { renderMonthly(_allMonthData[idx], idx); return; }
+
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${MONTHS[idx].gid}`;
+  document.getElementById('balance-cards').innerHTML = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div>Fetching…</div>';
+  ['maint-tbody','exp-tbody'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=`<tr><td colspan="10" class="loader"><div class="spinner"></div></td></tr>`; });
+
   try {
     const text = await fetchCSV(url);
-    render(parseCSV(text), idx);
+    const data = parseSheetData(parseCSV(text));
+    _allMonthData[idx] = data;
+    _dataLoadedFlags[idx] = true;
+    renderMonthly(data, idx);
   } catch(err) {
     console.error(err);
-    document.getElementById('balance-cards').innerHTML=`
+    document.getElementById('balance-cards').innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
         <div style="font-size:36px;margin-bottom:12px">🔒</div>
         <div style="font-size:16px;margin-bottom:8px;color:var(--text)">Could not load sheet data</div>
-        <div style="font-size:13px;margin-bottom:20px">Make sure the sheet is shared: <strong style="color:var(--text)">Anyone with link → Viewer</strong></div>
+        <div style="font-size:13px;margin-bottom:20px">Share the sheet: <strong style="color:var(--text)">Anyone with link → Viewer</strong></div>
         <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing" target="_blank" class="btn btn-p" style="display:inline-flex;margin:0 auto">Open Sheet →</a>
       </div>`;
-    ['maint-tbody','exp-tbody','chart-bars'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
   }
 }
 
+function switchMonth() { loadMonth(parseInt(document.getElementById('month-select').value,10)); }
 
+// ── LOAD ALL MONTHS ───────────────────────────────────────────────────────────
+async function loadAllMonths() {
+  for (let i = 0; i < MONTHS.length; i++) {
+    if (!_allMonthData[i]) {
+      try {
+        const url  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${MONTHS[i].gid}`;
+        const text = await fetchCSV(url);
+        const data = parseSheetData(parseCSV(text));
+        _allMonthData[i] = data;
+        _dataLoadedFlags[i] = true;
+      } catch(e) { console.error('Failed month', i, e); }
+    }
+  }
+}
 
-// ── RECEIPT FUNCTIONS ─────────────────────────────────────────────────────────
-let _currentReceiptHTML = '';
+// ── COMPARISON TAB ────────────────────────────────────────────────────────────
+async function renderCompare() {
+  document.getElementById('compare-loading').style.display = 'flex';
+  document.getElementById('compare-content').style.display = 'none';
+  await loadAllMonths();
+  document.getElementById('compare-loading').style.display = 'none';
+  document.getElementById('compare-content').style.display = 'block';
 
-function showReceipt(d, monthLabel) {
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
-  const receiptNo = 'SBM-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + d.label.replace(/\s+/g,'').toUpperCase().slice(0,4);
+  const rows = MONTHS.map((m,i) => {
+    const d = _allMonthData[i];
+    if (!d) return null;
+    const paid    = d.items.filter(x=>!x.isPending).length;
+    const pending = d.items.filter(x=>x.isPending).length;
+    return { month:m.short, collected:d.totalCollected, expenses:d.totalExp, net:d.totalCollected-d.totalExp, paid, pending };
+  }).filter(Boolean);
 
-  const rows = d.amts.filter(e => e.amt > 0).map(e =>
-    `<div class="rec-row"><span class="rec-key">${e.name}</span><span class="rec-val">${fmt(e.amt)}</span></div>`
-  ).join('');
+  // Summary compare cards per category
+  const maxCol = Math.max(...rows.map(r=>r.collected),1);
+  const maxExp = Math.max(...rows.map(r=>r.expenses),1);
 
-  const html = `
-    <div class="rec-logo">
-      <div class="rec-logo-icon">🏛️</div>
-      <div>
-        <div class="rec-logo-text">Stone Bridge Mirth Apartments</div>
-        <div class="rec-logo-sub">Maintenance Receipt</div>
-      </div>
+  document.getElementById('compare-grid').innerHTML = `
+    <div class="compare-card">
+      <div class="compare-card-title">💰 Total Collected</div>
+      ${rows.map((r,i)=>`
+        <div class="compare-bar-row">
+          <div class="compare-bar-label">${r.month}</div>
+          <div class="compare-bar-track"><div class="compare-bar-fill" style="width:${r.collected/maxCol*100}%;background:${COLORS[i]}"></div></div>
+          <div class="compare-bar-val">${fmt(r.collected)}</div>
+        </div>`).join('')}
     </div>
-    <div class="rec-meta">
-      <span>Receipt No: <strong>${receiptNo}</strong></span>
-      <span>Date: <strong>${dateStr}</strong></span>
-    </div>
-    <div class="rec-section-title">Flat Details</div>
-    <div class="rec-row"><span class="rec-key">Flat / Unit</span><span class="rec-val">${d.label}</span></div>
-    <div class="rec-row"><span class="rec-key">Period</span><span class="rec-val">${monthLabel}</span></div>
-    <div class="rec-section-title">Payment Breakdown</div>
-    ${rows}
-    <div class="rec-total-row">
-      <span class="rec-total-label">Total Paid</span>
-      <span class="rec-total-val">${fmt(d.sub)}</span>
-    </div>
-    <div class="rec-stamp">✅ Payment Confirmed — Paid</div>
-    <div class="rec-footer">
-      Stone Bridge Mirth Apartments · This is a computer-generated receipt<br>
-      Generated on ${dateStr}
+    <div class="compare-card">
+      <div class="compare-card-title">🔧 Total Expenses</div>
+      ${rows.map((r,i)=>`
+        <div class="compare-bar-row">
+          <div class="compare-bar-label">${r.month}</div>
+          <div class="compare-bar-track"><div class="compare-bar-fill" style="width:${r.expenses/maxExp*100}%;background:var(--accent2)"></div></div>
+          <div class="compare-bar-val">${fmt(r.expenses)}</div>
+        </div>`).join('')}
     </div>`;
 
-  _currentReceiptHTML = html;
-  document.getElementById('receipt-content').innerHTML = html;
-  document.getElementById('receipt-modal').classList.add('open');
+  // Comparison chart
+  const maxAll = Math.max(...rows.map(r=>r.collected),1);
+  document.getElementById('compare-bars').innerHTML = rows.map((r,i)=>{
+    const hC = r.collected/maxAll*100, hE = r.expenses/maxAll*100;
+    return `<div class="bar-g" style="gap:2px">
+      <div style="display:flex;align-items:flex-end;gap:4px;height:${hC+hE}%;width:100%">
+        <div class="bar" style="flex:1;height:${r.collected>0?100:0}%;background:${COLORS[i]};opacity:0.85" data-tip="${r.month} Collected: ${fmt(r.collected)}"></div>
+        <div class="bar" style="flex:1;height:${r.expenses>0?(r.expenses/r.collected*100):0}%;background:var(--accent2);opacity:0.7" data-tip="${r.month} Expenses: ${fmt(r.expenses)}"></div>
+      </div>
+      <div class="bar-lbl">${r.month}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('compare-subtitle').textContent = `${rows.length} months loaded`;
+
+  document.getElementById('compare-tbody').innerHTML = rows.map((r,i)=>{
+    const prev = i > 0 ? rows[i-1] : null;
+    const trendC = prev ? (r.collected > prev.collected ? '▲' : r.collected < prev.collected ? '▼' : '—') : '';
+    const trendCls= prev ? (r.collected > prev.collected ? 'trend-up' : r.collected < prev.collected ? 'trend-down' : 'trend-same') : '';
+    return `<tr>
+      <td class="td-label">${r.month}</td>
+      <td class="td-total">${fmt(r.collected)} <span class="${trendCls}" style="font-size:11px">${trendC}</span></td>
+      <td class="td-total2">${fmt(r.expenses)}</td>
+      <td class="td-num" style="color:${r.net>=0?'var(--green)':'var(--red)'}">${fmt(r.net)}</td>
+      <td class="td-num" style="color:var(--green)">${r.paid}</td>
+      <td class="td-num" style="color:var(--orange)">${r.pending||0}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── PENDING TRACKER TAB ───────────────────────────────────────────────────────
+async function renderPendingTracker() {
+  document.getElementById('pending-loading').style.display = 'flex';
+  document.getElementById('pending-content').style.display = 'none';
+  await loadAllMonths();
+  document.getElementById('pending-loading').style.display = 'none';
+  document.getElementById('pending-content').style.display = 'block';
+
+  // Collect all unique flats
+  const allFlats = new Set();
+  MONTHS.forEach((_,i) => { (_allMonthData[i]?.items||[]).forEach(d => allFlats.add(d.label)); });
+  const flats = [...allFlats].sort();
+
+  const flatStatus = flats.map(flat => {
+    const months = MONTHS.map((_,i) => {
+      const d = _allMonthData[i];
+      if (!d) return 'no-data';
+      const item = d.items.find(x => x.label === flat);
+      if (!item) return 'not-found';
+      return item.isPending ? 'pending' : 'paid';
+    });
+    const pendingCount = months.filter(s => s === 'pending').length;
+    return { flat, months, pendingCount };
+  }).filter(f => f.pendingCount > 0 || f.months.some(m=>m==='paid'));
+
+  const totalPending = flatStatus.filter(f=>f.pendingCount>0).length;
+  const consecutive  = flatStatus.filter(f=>f.pendingCount >= 2).length;
+
+  document.getElementById('pending-summary-cards').innerHTML = `
+    <div class="bal-card" style="--card-color:var(--orange)">
+      <div class="bal-label">Units with Pending</div>
+      <div class="bal-value" style="color:var(--orange)">${totalPending}</div>
+      <div class="bal-sub">Across all months</div>
+    </div>
+    <div class="bal-card" style="--card-color:var(--red)">
+      <div class="bal-label">2+ Months Pending</div>
+      <div class="bal-value" style="color:var(--red)">${consecutive}</div>
+      <div class="bal-sub">Needs attention</div>
+    </div>
+    <div class="bal-card" style="--card-color:var(--green)">
+      <div class="bal-label">Fully Paid Units</div>
+      <div class="bal-value" style="color:var(--green)">${flatStatus.filter(f=>f.pendingCount===0).length}</div>
+      <div class="bal-sub">All months cleared</div>
+    </div>`;
+
+  const statusBadge = (s) => {
+    if (s==='paid')      return `<span style="color:var(--green);font-size:12px;font-family:'DM Mono',monospace">✓ Paid</span>`;
+    if (s==='pending')   return `<span style="color:var(--orange);font-size:12px;font-family:'DM Mono',monospace">⚠ Pending</span>`;
+    if (s==='not-found') return `<span style="color:var(--dim);font-size:12px">—</span>`;
+    return `<span style="color:var(--dim);font-size:12px">…</span>`;
+  };
+
+  document.getElementById('pending-tbody').innerHTML = flatStatus.map(f => {
+    const waMsg  = encodeURIComponent(`Dear ${f.flat} resident,\n\nThis is a gentle reminder that your maintenance payment is pending for the following months:\n${f.months.map((s,i)=>s==='pending'?`• ${MONTHS[i].short}`:'').filter(Boolean).join('\n')}\n\nKindly clear the dues at the earliest.\n\nThank you,\nStone Bridge Mirth Apartments`);
+    const waLink = `https://wa.me/?text=${waMsg}`;
+    return `<tr>
+      <td class="td-label" style="font-weight:500">${f.flat}</td>
+      ${f.months.map(s=>`<td>${statusBadge(s)}</td>`).join('')}
+      <td><span style="color:${f.pendingCount>=2?'var(--red)':f.pendingCount===1?'var(--orange)':'var(--green)'};font-family:'DM Mono',monospace;font-size:13px;font-weight:600">${f.pendingCount}</span></td>
+      <td>${f.pendingCount>0?`<a href="${waLink}" target="_blank" class="btn btn-wa" style="padding:5px 10px;font-size:11px;text-decoration:none">📲 WhatsApp</a>`:''}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── ANNUAL SUMMARY TAB ────────────────────────────────────────────────────────
+async function renderAnnual() {
+  document.getElementById('annual-loading').style.display = 'flex';
+  document.getElementById('annual-content').style.display = 'none';
+  await loadAllMonths();
+  document.getElementById('annual-loading').style.display = 'none';
+  document.getElementById('annual-content').style.display = 'block';
+
+  const loaded = MONTHS.map((_,i) => _allMonthData[i]).filter(Boolean);
+  const totalC = loaded.reduce((a,d) => a+d.totalCollected, 0);
+  const totalE = loaded.reduce((a,d) => a+d.totalExp, 0);
+  const netBal = totalC - totalE;
+
+  document.getElementById('annual-totals').innerHTML = `
+    <div class="bal-card" style="--card-color:#3fb950">
+      <div class="bal-label">YTD Collected</div>
+      <div class="bal-value" style="color:#3fb950">${fmt(totalC)}</div>
+      <div class="bal-sub">Jan – ${MONTHS[loaded.length-1].short.split(' ')[0]} 2026</div>
+    </div>
+    <div class="bal-card" style="--card-color:var(--accent2)">
+      <div class="bal-label">YTD Expenses</div>
+      <div class="bal-value" style="color:var(--accent2)">${fmt(totalE)}</div>
+      <div class="bal-sub">${loaded.length} months</div>
+    </div>
+    <div class="bal-card" style="--card-color:var(--accent)">
+      <div class="bal-label">Net Balance (YTD)</div>
+      <div class="bal-value" style="color:${netBal>=0?'var(--accent)':'var(--red)'}">${fmt(netBal)}</div>
+      <div class="bal-sub">${netBal>=0?'Surplus':'Deficit'}</div>
+    </div>`;
+
+  document.getElementById('annual-grid').innerHTML = MONTHS.map((m,i) => {
+    const d = _allMonthData[i];
+    if (!d) return `<div class="annual-card"><div class="annual-card-month">${m.short}</div><div style="color:var(--muted);font-size:13px">Not loaded</div><span class="annual-card-status status-loading">Loading…</span></div>`;
+    return `<div class="annual-card">
+      <div class="annual-card-month">${m.short}</div>
+      <div class="annual-card-collected">${fmt(d.totalCollected)}</div>
+      <div class="annual-card-expenses">Expenses: ${fmt(d.totalExp)}</div>
+      <div class="annual-card-balance">Closing: ${d.closingBal!==null?fmt(d.closingBal):'—'}</div>
+      <span class="annual-card-status status-loaded">✓ Loaded · ${d.items.length} units</span>
+    </div>`;
+  }).join('');
+
+  // Annual bar chart
+  const maxVal = Math.max(...MONTHS.map((_,i)=>_allMonthData[i]?.totalCollected||0),1);
+  document.getElementById('annual-bars').innerHTML = MONTHS.map((m,i) => {
+    const d = _allMonthData[i];
+    if (!d) return `<div class="bar-g"><div class="bar" style="height:3%;background:var(--dim)" data-tip="${m.short}: No data"></div><div class="bar-lbl">${m.short}</div></div>`;
+    const hC = d.totalCollected/maxVal*100, hE = d.totalExp/maxVal*100;
+    return `<div class="bar-g">
+      <div style="display:flex;align-items:flex-end;gap:4px;width:100%;height:100%">
+        <div class="bar" style="flex:1;height:${Math.max(hC,3)}%;background:${COLORS[i]};opacity:0.85" data-tip="${m.short} Collected: ${fmt(d.totalCollected)}"></div>
+        <div class="bar" style="flex:1;height:${Math.max(hE,hE>0?3:0)}%;background:var(--accent2);opacity:0.65" data-tip="${m.short} Expenses: ${fmt(d.totalExp)}"></div>
+      </div>
+      <div class="bar-lbl">${m.short.split(' ')[0]}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── TAB SWITCHING ─────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const names = ['monthly','compare','pending','annual'];
+    t.classList.toggle('active', names[i] === name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if (name === 'compare' && !document.getElementById('compare-content').style.display.includes('block')) renderCompare();
+  if (name === 'pending' && !document.getElementById('pending-content').style.display.includes('block'))  renderPendingTracker();
+  if (name === 'annual'  && !document.getElementById('annual-content').style.display.includes('block'))   renderAnnual();
+}
+
+// ── WHATSAPP ──────────────────────────────────────────────────────────────────
+function shareReceiptWhatsApp() {
+  const month = MONTHS[_currentMonthIdx];
+  const msg   = `🏛️ *Stone Bridge Mirth Apartments*\n*Maintenance Receipt — ${month.label}*\n\nFlat/Unit: *${_currentReceiptFlat}*\nAmount Paid: *${fmt(_currentReceiptAmt)}*\nStatus: ✅ Paid\n\n_Computer-generated receipt_`;
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function shareAllPendingWhatsApp() {
+  const data    = _allMonthData[_currentMonthIdx];
+  const pending = data?.items?.filter(d=>d.isPending) || [];
+  if (!pending.length) return;
+  const list = pending.map(d=>`• ${d.label} (${fmt(d.rawSub)})`).join('\n');
+  const msg  = `🏛️ *Stone Bridge Mirth Apartments*\n*Pending Maintenance — ${MONTHS[_currentMonthIdx].label}*\n\nThe following units have pending maintenance dues:\n\n${list}\n\nKindly clear your dues at the earliest.\n\nThank you 🙏`;
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ── BULK RECEIPTS ─────────────────────────────────────────────────────────────
+function bulkDownload() {
+  const data = _allMonthData[_currentMonthIdx];
+  if (!data) return alert('Month data not loaded yet');
+  const paid = data.items.filter(d=>!d.isPending);
+  if (!paid.length) return alert('No paid units to generate receipts for');
+  const month = MONTHS[_currentMonthIdx];
+  const now   = new Date();
+  const dateStr = now.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>All Receipts – ${month.short}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Outfit',sans-serif;background:#f5f5f5}
+    .page-break{page-break-after:always;margin-bottom:0}
+    .receipt-wrap{max-width:520px;margin:30px auto;padding:32px;border:1px solid #e0e0e0;border-radius:12px;background:#fff}
+    .rec-logo{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:2.5px solid #e8c96b}
+    .rec-logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#e8c96b,#c8a83b);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .rec-logo-text{font-size:15px;font-weight:700;color:#111}.rec-logo-sub{font-size:10px;color:#666;letter-spacing:1.5px;text-transform:uppercase}
+    .rec-meta{display:flex;justify-content:space-between;margin-bottom:16px;font-size:11px;color:#666}.rec-meta strong{color:#111}
+    .rec-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#999;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #f0f0f0}
+    .rec-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5}
+    .rec-key{color:#555;font-size:12px}.rec-val{font-weight:600;color:#111;font-size:12px}
+    .rec-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:12px 16px;background:#fdf8ec;border-radius:8px;border-left:4px solid #e8c96b}
+    .rec-total-label{font-weight:700;font-size:14px;color:#111}.rec-total-val{font-weight:800;font-size:22px;color:#b8960a}
+    .rec-stamp{margin-top:16px;display:flex;align-items:center;gap:6px;color:#2a9e44;font-size:12px;font-weight:700}
+    .rec-footer{margin-top:18px;padding-top:12px;border-top:1px dashed #ddd;font-size:10px;color:#bbb;text-align:center;line-height:1.6}
+    @media print{body{background:#fff}.receipt-wrap{border:none;max-width:100%}.no-print{display:none!important}@page{margin:10mm 15mm;size:A4}}
+    .no-print{text-align:center;padding:20px}
+    .no-print button{padding:10px 28px;background:#e8c96b;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:#111;cursor:pointer;margin:0 6px}
+    .no-print .sec{background:#f0f0f0;color:#555}
+  </style></head><body>
+
+  <div class="no-print"><button onclick="window.print()">⬇ Print / Save All as PDF</button><button class="sec" onclick="window.close()">Close</button></div>`;
+
+paid.forEach((d, idx) => {
+const receiptNo = `SBM-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${d.label.replace(/\s+/g,'').toUpperCase().slice(0,4)}`;
+const rows = d.amts.filter(e=>e.amt>0).map(e=>`<div class="rec-row"><span class="rec-key">${e.name}</span><span class="rec-val">${fmt(e.amt)}</span></div>`).join(’’);
+html += `<div class="receipt-wrap ${idx<paid.length-1?'page-break':''}"> <div class="rec-logo"><div class="rec-logo-icon">🏛️</div><div><div class="rec-logo-text">Stone Bridge Mirth Apartments</div><div class="rec-logo-sub">Maintenance Receipt</div></div></div> <div class="rec-meta"><span>Receipt No: <strong>${receiptNo}</strong></span><span>Date: <strong>${dateStr}</strong></span></div> <div class="rec-section-title">Flat Details</div> <div class="rec-row"><span class="rec-key">Flat / Unit</span><span class="rec-val">${d.label}</span></div> <div class="rec-row"><span class="rec-key">Period</span><span class="rec-val">${month.short}</span></div> <div class="rec-section-title">Payment Breakdown</div>${rows} <div class="rec-total-row"><span class="rec-total-label">Total Paid</span><span class="rec-total-val">${fmt(d.sub)}</span></div> <div class="rec-stamp">✅ Payment Confirmed — Paid</div> <div class="rec-footer">Stone Bridge Mirth Apartments · Computer-generated receipt<br>Generated on ${dateStr}</div> </div>`;
+});
+
+html += ‘</body></html>’;
+const win = window.open(’’,’_blank’,‘width=700,height=900’);
+win.document.write(html);
+win.document.close();
+}
+
+// ── RECEIPT MODAL ─────────────────────────────────────────────────────────────
+function showReceipt(d, monthLabel) {
+const now = new Date();
+const dateStr   = now.toLocaleDateString(‘en-IN’,{day:‘numeric’,month:‘long’,year:‘numeric’});
+const receiptNo = ‘SBM-’ + now.getFullYear() + ‘-’ + String(now.getMonth()+1).padStart(2,‘0’) + ‘-’ + d.label.replace(/\s+/g,’’).toUpperCase().slice(0,4);
+_currentReceiptFlat = d.label;
+_currentReceiptAmt  = d.sub;
+
+const rows = d.amts.filter(e=>e.amt>0).map(e=>`<div class="rec-row"><span class="rec-key">${e.name}</span><span class="rec-val">${fmt(e.amt)}</span></div>`).join(’’);
+const html = ` <div class="rec-logo"><div class="rec-logo-icon">🏛️</div><div><div class="rec-logo-text">Stone Bridge Mirth Apartments</div><div class="rec-logo-sub">Maintenance Receipt</div></div></div> <div class="rec-meta"><span>Receipt No: <strong>${receiptNo}</strong></span><span>Date: <strong>${dateStr}</strong></span></div> <div class="rec-section-title">Flat Details</div> <div class="rec-row"><span class="rec-key">Flat / Unit</span><span class="rec-val">${d.label}</span></div> <div class="rec-row"><span class="rec-key">Period</span><span class="rec-val">${monthLabel}</span></div> <div class="rec-section-title">Payment Breakdown</div>${rows} <div class="rec-total-row"><span class="rec-total-label">Total Paid</span><span class="rec-total-val">${fmt(d.sub)}</span></div> <div class="rec-stamp">✅ Payment Confirmed — Paid</div> <div class="rec-footer">Stone Bridge Mirth Apartments · Computer-generated receipt<br>Generated on ${dateStr}</div>`;
+_currentReceiptHTML = html;
+document.getElementById(‘receipt-content’).innerHTML = html;
+document.getElementById(‘receipt-modal’).classList.add(‘open’);
 }
 
 function closeModal(e) {
-  if (e.target === document.getElementById('receipt-modal'))
-    document.getElementById('receipt-modal').classList.remove('open');
+if (e.target === document.getElementById(‘receipt-modal’))
+document.getElementById(‘receipt-modal’).classList.remove(‘open’);
 }
 
 function downloadReceipt() {
-  const win = window.open('', '_blank', 'width=680,height=900');
-  win.document.write(`<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Receipt</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { background:#fff !important; color:#111 !important; font-family:'Outfit',sans-serif; font-size:13px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .receipt-wrap { max-width:520px; margin:30px auto; padding:32px; border:1px solid #e0e0e0; border-radius:12px; }
-  .rec-logo { display:flex; align-items:center; gap:10px; margin-bottom:18px; padding-bottom:14px; border-bottom:2.5px solid #e8c96b; }
-  .rec-logo-icon { width:38px; height:38px; background:linear-gradient(135deg,#e8c96b,#c8a83b); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-  .rec-logo-text { font-size:15px; font-weight:700; color:#111; line-height:1.2; }
-  .rec-logo-sub { font-size:10px; color:#666; letter-spacing:1.5px; text-transform:uppercase; }
-  .rec-meta { display:flex; justify-content:space-between; margin-bottom:16px; font-size:11px; color:#666; }
-  .rec-meta strong { color:#111; }
-  .rec-section-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#999; margin:16px 0 8px; padding-bottom:4px; border-bottom:1px solid #f0f0f0; }
-  .rec-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid #f5f5f5; }
-  .rec-row:last-of-type { border-bottom:none; }
-  .rec-key { color:#555; font-size:12px; }
-  .rec-val { font-weight:600; color:#111; font-size:12px; }
-  .rec-total-row { display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding:12px 16px; background:#fdf8ec; border-radius:8px; border-left:4px solid #e8c96b; }
-  .rec-total-label { font-weight:700; font-size:14px; color:#111; }
-  .rec-total-val { font-weight:800; font-size:22px; color:#b8960a; }
-  .rec-stamp { margin-top:16px; display:flex; align-items:center; gap:6px; color:#2a9e44; font-size:12px; font-weight:700; }
-  .rec-footer { margin-top:18px; padding-top:12px; border-top:1px dashed #ddd; font-size:10px; color:#bbb; text-align:center; line-height:1.6; }
-  @media print {
-    html, body { background:#fff !important; }
-    .receipt-wrap { border:none; margin:0; padding:20px; max-width:100%; }
-    @page { margin:10mm 15mm; size:A4; }
-  }
-  .no-print { text-align:center; margin-top:20px; }
-  .no-print button { padding:10px 28px; background:#e8c96b; border:none; border-radius:8px; font-family:'Outfit',sans-serif; font-size:14px; font-weight:600; color:#111; cursor:pointer; margin:0 6px; }
-  .no-print button.sec { background:#f0f0f0; color:#555; }
-  @media print { .no-print { display:none !important; } }
-</style>
-</head>
-<body>
-<div class="receipt-wrap">
-  ${_currentReceiptHTML}
-</div>
-<div class="no-print">
-  <button onclick="window.print()">⬇ Save as PDF / Print</button>
-  <button class="sec" onclick="window.close()">Close</button>
-</div>
-</body>
-</html>`);
+const win = window.open(’’,’_blank’,‘width=680,height=900’);
+win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Receipt</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}html,body{background:#fff!important;color:#111!important;font-family:'Outfit',sans-serif;font-size:13px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .receipt-wrap{max-width:520px;margin:30px auto;padding:32px;border:1px solid #e0e0e0;border-radius:12px}
+    .rec-logo{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:2.5px solid #e8c96b}
+    .rec-logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#e8c96b,#c8a83b);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .rec-logo-text{font-size:15px;font-weight:700;color:#111;line-height:1.2}.rec-logo-sub{font-size:10px;color:#666;letter-spacing:1.5px;text-transform:uppercase}
+    .rec-meta{display:flex;justify-content:space-between;margin-bottom:16px;font-size:11px;color:#666}.rec-meta strong{color:#111}
+    .rec-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#999;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #f0f0f0}
+    .rec-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5}
+    .rec-key{color:#555;font-size:12px}.rec-val{font-weight:600;color:#111;font-size:12px}
+    .rec-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:12px 16px;background:#fdf8ec;border-radius:8px;border-left:4px solid #e8c96b}
+    .rec-total-label{font-weight:700;font-size:14px;color:#111}.rec-total-val{font-weight:800;font-size:22px;color:#b8960a}
+    .rec-stamp{margin-top:16px;display:flex;align-items:center;gap:6px;color:#2a9e44;font-size:12px;font-weight:700}
+    .rec-footer{margin-top:18px;padding-top:12px;border-top:1px dashed #ddd;font-size:10px;color:#bbb;text-align:center;line-height:1.6}
+    @media print{html,body{background:#fff!important}.receipt-wrap{border:none;margin:0;padding:20px;max-width:100%}@page{margin:10mm 15mm;size:A4}.no-print{display:none!important}}
+    .no-print{text-align:center;margin-top:20px}
+    .no-print button{padding:10px 28px;background:#e8c96b;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:#111;cursor:pointer;margin:0 6px}
+    .no-print button.sec{background:#f0f0f0;color:#555}
+  </style></head><body>
+  <div class="receipt-wrap">${_currentReceiptHTML}</div>
+  <div class="no-print"><button onclick="window.print()">⬇ Save as PDF / Print</button><button class="sec" onclick="window.close()">Close</button></div>
+  </body></html>`);
   win.document.close();
 }
 
-function switchMonth(){loadMonth(parseInt(document.getElementById('month-select').value,10));}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  const sel=document.getElementById('month-select');
-  sel.innerHTML=MONTHS.map((m,i)=>`<option value="${i}">${m.label}</option>`).join('');
-  loadMonth(0);
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener(‘DOMContentLoaded’, () => {
+const sel = document.getElementById(‘month-select’);
+sel.innerHTML = MONTHS.map((m,i)=>`<option value="${i}">${m.label}</option>`).join(’’);
+loadMonth(0);
 });
 </script>
 
-<!-- RECEIPT MODAL -->
-<div class="modal-overlay" id="receipt-modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Payment Receipt</div>
-      <button class="modal-close" onclick="document.getElementById('receipt-modal').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="receipt-preview" id="receipt-content"></div>
-      <div class="modal-actions">
-        <button class="btn btn-p" onclick="downloadReceipt()">⬇ Download PDF</button>
-        <button class="btn btn-g" onclick="document.getElementById('receipt-modal').classList.remove('open')">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- HIDDEN PRINT AREA -->
-<div id="print-area"></div>
 </body>
 </html>
