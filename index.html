@@ -491,22 +491,57 @@ function parseAmt(v) {
 function norm(s) { return (s || '').toLowerCase().trim(); }
 const DOP_PATTERNS = ['d.o.p','dop','date of pay','date pay'];
 
+async function fetchWithTimeout(url, ms) {
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    clearTimeout(tid);
+    return res;
+  } catch(e) { clearTimeout(tid); throw e; }
+}
+
 async function fetchCSV(url) {
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-    if (res.ok) return await res.text();
-  } catch(e) {}
-  try {
-    const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-    const res = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) { const json = await res.json(); if (json && json.contents) return json.contents; }
-  } catch(e) {}
-  try {
-    const proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(url);
-    const res = await fetch(proxy2, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) return await res.text();
-  } catch(e) {}
-  throw new Error('All fetch strategies failed');
+  const strategies = [
+    // 1. Direct
+    async () => {
+      const res = await fetchWithTimeout(url, 7000);
+      if (res.ok) return await res.text();
+      throw new Error('Direct: ' + res.status);
+    },
+    // 2. AllOrigins
+    async () => {
+      const res = await fetchWithTimeout('https://api.allorigins.win/get?url=' + encodeURIComponent(url), 12000);
+      if (!res.ok) throw new Error('AllOrigins: ' + res.status);
+      const j = await res.json();
+      if (j && j.contents && j.contents.length > 100) return j.contents;
+      throw new Error('AllOrigins: empty');
+    },
+    // 3. corsproxy.io
+    async () => {
+      const res = await fetchWithTimeout('https://corsproxy.io/?' + encodeURIComponent(url), 12000);
+      if (res.ok) { const t = await res.text(); if (t.length > 100) return t; }
+      throw new Error('corsproxy.io failed');
+    },
+    // 4. thingproxy
+    async () => {
+      const res = await fetchWithTimeout('https://thingproxy.freeboard.io/fetch/' + url, 12000);
+      if (res.ok) { const t = await res.text(); if (t.length > 100) return t; }
+      throw new Error('thingproxy failed');
+    },
+    // 5. jsonp.afeld.me
+    async () => {
+      const res = await fetchWithTimeout('https://jsonp.afeld.me/?url=' + encodeURIComponent(url), 12000);
+      if (res.ok) { const t = await res.text(); if (t.length > 100) return t; }
+      throw new Error('afeld failed');
+    }
+  ];
+
+  const errs = [];
+  for (const fn of strategies) {
+    try { return await fn(); } catch(e) { errs.push(e.message); console.warn('Fetch strategy failed:', e.message); }
+  }
+  throw new Error('All fetch strategies failed: ' + errs.join(' | '));
 }
 
 // ── PARSE SHEET DATA ──────────────────────────────────────────────────────────
